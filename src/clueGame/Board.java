@@ -26,6 +26,18 @@ public class Board {
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
 	
+	//3/10
+	private Solution theAnswer;
+	
+	public void loadConfigFiles(){}
+	public void selectAnswer(){}
+	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
+		return null;
+	}
+	public boolean checkAccustaion(Solution accustaion){
+		return false;
+	}
+	
 	public Board() {
 		// TODO Auto-generated constructor stub
 		
