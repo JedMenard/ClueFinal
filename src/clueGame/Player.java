@@ -10,7 +10,7 @@ public class Player {
 	private int row, column;	
 	private Color color;
 	private Set<Card> myCards;
-	private Set<Card> seenCards;
+	private static Set<Card> seenCards;
 		
 	public Card disproveSuggestion(Solution suggestion) {
 		return null;
@@ -32,5 +32,14 @@ public class Player {
 	//for test
 	public Set<Card> GetMyCards() {
 		return myCards;
+	}
+	
+	public void SeeCard(Card c){
+		seenCards.add(c);
+	}
+	
+	public void setLocation(int r, int c){
+		row = r;
+		column = c;
 	}
 }

@@ -9,8 +9,8 @@ public class ComputerPlayer extends Player {
 	public void makeAccustation() {
 		
 	}
-	public void makeSuggestion(Board board, BoardCell location) {
-		
+	public Solution makeSuggestion(Board board, BoardCell location) {
+		return null;
 	}
 
 }
