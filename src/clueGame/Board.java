@@ -37,7 +37,7 @@ public class Board {
 
 	public void loadConfigFiles(){}
 	public void selectAnswer(){}
-	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
+	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
 		return null;
 	}
 	public boolean checkAccustaion(Solution accustaion){

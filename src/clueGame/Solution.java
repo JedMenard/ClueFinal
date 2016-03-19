@@ -6,6 +6,11 @@ public class Solution {
 		room = r;
 		weapon = w;
 	}
+	public Solution(Card p, Card r, Card w){
+		person = p.getName();
+		room = r.getName();
+		weapon = w.getName();
+	}
 	public String person;
 	public String room;
 	public String weapon;
