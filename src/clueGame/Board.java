@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -26,30 +27,29 @@ public class Board {
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
 	
-	//3/10
+	// 3/18
+	public static Set<Card> deck;	
+	
+	// 3/10
 	private Solution theAnswer;
 	
 	public void loadConfigFiles(){}
 	public void selectAnswer(){}
 	public Card handleSuggestion(Solution suggestion, String accusingPlayer, BoardCell clicked) {
-		return null;
+			return null;
 	}
 	public boolean checkAccustaion(Solution accustaion){
 		return false;
 	}
 	
 	public Board() {
-		// TODO Auto-generated constructor stub
-		
 		leg = "Legend.txt";
-		lay = "Layout.csv";
+		lay = "Layout.csv";		
 	}
 	
 	public Board(String string, String string2) {
-		// TODO Auto-generated constructor stub
-		
 		lay = string;
-		leg = string2;
+		leg = string2;		
 	}
 
 	public void initialize(){
@@ -79,6 +79,58 @@ public class Board {
 				calcAdjacencies(board[r][c]);
 			}
 		}
+		
+		//This is where the board tries to create the deck
+		try { loadCards(); }
+		catch (FileNotFoundException e) {
+			System.out.println("Can't find card file");
+		}		
+	}
+	
+
+	//This is the function which tries to laod the deck of cards from cards.txt and legend.txt
+	public void loadCards() throws FileNotFoundException {
+		//initialize deck, and the reader for the files
+		//I used separate files because the nextline() was being difficult to work with when looking
+		//	for multiple different types of text structures.
+		deck = new HashSet<Card>();
+		FileReader legend = new FileReader(leg);		
+		Scanner in = new Scanner(legend);
+		String s = null;
+		
+		//Loads the room cards
+		while (in.hasNext()) {
+			if (in.hasNext()) in.next();
+			if (in.hasNext()) s = in.next();
+			if (s.endsWith(",")) s = s.substring(0, s.lastIndexOf(','));
+			else { s += " " + in.next(); s = s.substring(0, s.lastIndexOf(',')); }			
+			Card card = new Card(s, CardType.ROOM);
+			if (in.hasNext()) s = in.next();			
+			if (s.contains("Card")) deck.add(card);
+		}
+		
+		in.close();
+		FileReader people = new FileReader("People.txt");
+		in = new Scanner(people);
+		
+		//Loads the people cards
+		while (in.hasNextLine()) {
+			s = in.nextLine();			
+			Card card = new Card(s, CardType.PERSON);
+			deck.add(card);
+		}
+		
+		in.close();
+		FileReader weapons = new FileReader("Weapons.txt");
+		in = new Scanner(weapons);
+		
+		//Loads the weapon cards
+		while (in.hasNextLine()) {
+			s = in.nextLine();			
+			Card card = new Card(s, CardType.WEAPON);
+			deck.add(card);
+		}		
+		in.close();		
 	}
 
 	public static Map<Character, String> getRooms() {
