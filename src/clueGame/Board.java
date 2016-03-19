@@ -15,6 +15,7 @@ import java.util.Set;
 public class Board {
 	
 	public final int BOARD_SIZE = 50;
+	public final int PLAYER_AMOUNT = 6;
 	private static HashMap<Character, String> rooms;
 	private BoardCell[][] board;
 	private BoardCell[][] tempBoard;
@@ -28,7 +29,8 @@ public class Board {
 	private Set<BoardCell> targets;
 	
 	// 3/18
-	public static Set<Card> deck;	
+	public ArrayList<Card> deck;	
+	public ArrayList<Player> players;	
 	
 	// 3/10
 	private Solution theAnswer;
@@ -80,10 +82,24 @@ public class Board {
 			}
 		}
 		
+		// 3/18////////////////////////////////////////////////////
+		
 		//This is where the board tries to create the deck
 		try { loadCards(); }
 		catch (FileNotFoundException e) {
 			System.out.println("Can't find card file");
+		}
+		
+		//Creates 1 human player and 5 computer players and distributes cards.
+		players = new ArrayList<Player>(); 
+		HumanPlayer human = new HumanPlayer();
+		players.add(human);
+		while (players.size() < PLAYER_AMOUNT) {
+			ComputerPlayer cp = new ComputerPlayer();
+			players.add(cp);
+		}
+		for (int i = 0; i < deck.size(); i++) {
+			players.get(i%PLAYER_AMOUNT).AddCard(deck.get(i));
 		}		
 	}
 	
@@ -93,7 +109,7 @@ public class Board {
 		//initialize deck, and the reader for the files
 		//I used separate files because the nextline() was being difficult to work with when looking
 		//	for multiple different types of text structures.
-		deck = new HashSet<Card>();
+		deck = new ArrayList<Card>();
 		FileReader legend = new FileReader(leg);		
 		Scanner in = new Scanner(legend);
 		String s = null;
