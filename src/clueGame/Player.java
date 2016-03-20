@@ -11,6 +11,7 @@ public class Player {
 	private Color color;
 	private Set<Card> myCards;
 	private static Set<Card> seenCards;
+	private BoardCell lastCell;
 		
 	public Card disproveSuggestion(Solution suggestion) {
 		return null;
@@ -78,5 +79,13 @@ public class Player {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public BoardCell getLastCell() {
+		return lastCell;
+	}
+
+	public void setLastCell(BoardCell lastCell) {
+		this.lastCell = lastCell;
 	}
 }
