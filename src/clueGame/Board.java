@@ -40,8 +40,9 @@ public class Board {
 	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
 		return null;
 	}
-	public boolean checkAccustaion(Solution accustaion){
-		return false;
+	public boolean checkAccustaion(Solution accusation){
+		if (accusation == theAnswer) return true;
+		else return false;
 	}
 
 	public Board() {
