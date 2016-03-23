@@ -126,6 +126,9 @@ public class Board {
 			if (in.hasNext()) s = in.next();			
 			if (s.contains("Card")) deck.add(card);
 		}
+		
+		int ran = (int) (Math.random()*deck.size());
+		String solRoom = deck.get(ran).getName();
 
 		in.close();
 		FileReader people = new FileReader("People.txt");
@@ -137,6 +140,12 @@ public class Board {
 			Card card = new Card(s, CardType.PERSON);
 			deck.add(card);
 		}
+		
+		Card c = new Card();
+		while (c.getType() != CardType.PERSON) {
+			c = deck.get((int)Math.random()*deck.size());
+		}
+		String solPerson = c.getName();
 
 		in.close();
 		FileReader weapons = new FileReader("Weapons.txt");
@@ -148,7 +157,18 @@ public class Board {
 			Card card = new Card(s, CardType.WEAPON);
 			deck.add(card);
 		}		
-		in.close();		
+		
+		while (c.getType() != CardType.WEAPON) {
+			c = deck.get((int)Math.random()*deck.size());
+		}
+		String solWeapon = c.getName();
+		in.close();
+		
+		theAnswer = new Solution(solPerson, solRoom, solWeapon);
+		
+		System.out.println(theAnswer.room);
+		System.out.println(theAnswer.person);
+		System.out.println(theAnswer.weapon);
 	}
 
 
