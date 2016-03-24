@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -40,8 +41,9 @@ public class Board {
 	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
 		return null;
 	}
-	public boolean checkAccustaion(Solution accustaion){
-		return false;
+	public boolean checkAccustaion(Solution accusation){
+		if (accusation == theAnswer) return true;
+		else return false;
 	}
 
 	public Board() {
@@ -111,6 +113,7 @@ public class Board {
 		//I used separate files because the nextline() was being difficult to work with when looking
 		//	for multiple different types of text structures.
 		deck = new ArrayList<Card>();
+		Random rand = new Random();
 		FileReader legend = new FileReader(leg);		
 		Scanner in = new Scanner(legend);
 		String s = null;
@@ -125,6 +128,9 @@ public class Board {
 			if (in.hasNext()) s = in.next();			
 			if (s.contains("Card")) deck.add(card);
 		}
+		
+		
+		String solRoom = deck.get(rand.nextInt(deck.size())).getName();
 
 		in.close();
 		FileReader people = new FileReader("People.txt");
@@ -136,6 +142,12 @@ public class Board {
 			Card card = new Card(s, CardType.PERSON);
 			deck.add(card);
 		}
+		
+		Card c = new Card();
+		do {
+			c = deck.get(rand.nextInt(deck.size()));
+		}while (c.getType() != CardType.PERSON);
+		String solPerson = c.getName();
 
 		in.close();
 		FileReader weapons = new FileReader("Weapons.txt");
@@ -147,7 +159,18 @@ public class Board {
 			Card card = new Card(s, CardType.WEAPON);
 			deck.add(card);
 		}		
-		in.close();		
+		
+		while (c.getType() != CardType.WEAPON) {
+			c = deck.get(rand.nextInt(deck.size()));
+		}
+		String solWeapon = c.getName();
+		in.close();
+		
+		theAnswer = new Solution(solPerson, solRoom, solWeapon);
+		
+		System.out.println(theAnswer.room);
+		System.out.println(theAnswer.person);
+		System.out.println(theAnswer.weapon);
 	}
 
 

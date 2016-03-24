@@ -26,10 +26,11 @@ public class cardTests {
 		board.initialize();
 	}
 
+
 	///////PART 1, LOADING THE CARDS///////////////////////
-	@Test
 	//Makes sure the deck is loaded to the appropriate amount
 	//	i.e. 9 rooms, 6 characters, 6 weapons as mentioned in the rules, totaling to 21.
+	@Test
 	public void testLoad() {
 		assertEquals(board.deck.size(), 21);		
 	}
