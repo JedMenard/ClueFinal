@@ -1,3 +1,4 @@
+
 package clueTests;
 
 import static org.junit.Assert.*;
@@ -16,24 +17,13 @@ import clueGame.Player;
 import clueGame.Solution;
 
 public class SelectTargetLocationTests {
-	Board gameBoard;
+	static Board gameBoard;
 	ComputerPlayer cPlayer = new ComputerPlayer();
 	
 	@BeforeClass
-	public void load() {
+	public static void load() {
 		gameBoard = new Board();
-	}
-	
-	@Test
-	public void functionDesignTest() {
-		gameBoard.calcTargets(5, 5, 0);
-		
-		// test 100 times that the player doesnt pick the room when it was last in the room
-		for(int i = 0; i < 100; i ++) {
-			BoardCell target = cPlayer.pickLocation(gameBoard.getTargets());
-
-			assertEquals(true, target != cPlayer.getLastCell());
-		}
+		gameBoard.initialize();
 	}
 	
 	@Test
@@ -45,21 +35,27 @@ public class SelectTargetLocationTests {
 		Random rand = new Random();
 		int roomNum = rand.nextInt(100);
 		
+		
+		
 		// create a set of targets with cells, one of them being a room cell
 		for(int i = 0; i < 100; i ++) {
 			BoardCell cell = new BoardCell();
 			if(i == roomNum) {
 				cell.setDoorDirection('R');
-				roomCell = cell;
+				roomCell = cell;		
 			}
+			sampleCells.add(cell);
 		}
+				
 		
 		// make sure that the computer picks the room every time
-		for(int i = 0; i < 1000; i ++) {
+		for(int i = 0; i < 10; i ++) {
 			assertEquals(true, cPlayer.pickLocation(sampleCells) == roomCell);
 		}
+		System.out.println();
 	}
 	
+	@Test
 	public void randomChoiceTest() {
 		gameBoard.calcTargets(3, 0, 2);
 		boolean loc_4_2 = false;

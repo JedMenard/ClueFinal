@@ -272,16 +272,16 @@ public class Board {
 		return targets;
 	}
 
-	public void calcTargets(int i, int j, int k) {
+	public void calcTargets(int row, int col, int steps) {
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
-		visited.add(board[i][j]);
+		visited.add(board[row][col]);
 
-		for(BoardCell c : adjMtx.get(board[i][j])){
-			getAllTargets(board[c.getRow()][c.getCol()], k-1, visited);
+		for(BoardCell c : adjMtx.get(board[row][col])){
+			getAllTargets(board[c.getRow()][c.getCol()], steps-1, visited);
 		}
 
-		if(targets.contains(board[i][j])) targets.remove(board[i][j]);
+		if(targets.contains(board[row][col])) targets.remove(board[row][col]);
 	}
 
 	private void getAllTargets(BoardCell thisCell, int k, Set<BoardCell> visited) {

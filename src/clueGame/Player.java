@@ -17,7 +17,7 @@ public class Player {
 	private Color color;
 	private Set<Card> myCards;
 	private static Set<Card> seenCards;
-	private BoardCell lastCell;
+	protected BoardCell lastCell;
 		
 	public Card disproveSuggestion(Solution suggestion) {
 		return null;

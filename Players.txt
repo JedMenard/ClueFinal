@@ -1,0 +1,5 @@
+Player1, Red, 0, 3
+CPU1, Blue, 13, 0
+CPU2, Green, 21, 6
+CPU3, Orange, 5, 22
+CPU4, Purple, 10, 22
