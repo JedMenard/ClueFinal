@@ -73,7 +73,7 @@ public class DisprovingSuggestionTest {
 	
 	@Test
 	public void testOnePlayerMultipleMatches(){
-		// Setting up the player and teh solution
+		// Setting up the player and the solution
 		Player p1 = new Player();
 		p1.AddCard(plum);
 		p1.AddCard(leadpipe);
