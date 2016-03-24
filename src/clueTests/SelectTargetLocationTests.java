@@ -57,26 +57,26 @@ public class SelectTargetLocationTests {
 	
 	@Test
 	public void randomChoiceTest() {
-		gameBoard.calcTargets(3, 0, 2);
-		boolean loc_4_2 = false;
-		boolean loc_3_4 = false;
-		boolean loc_4_5 = false;
+		gameBoard.calcTargets(5, 1, 1);
+		boolean loc_4_1 = false;
+		boolean loc_5_0 = false;
+		boolean loc_5_2 = false;
 		
 		// run the test 100 times
 		for (int i=0; i<100; i++) {
 			BoardCell selected = cPlayer.pickLocation(gameBoard.getTargets());
-			if (selected == gameBoard.getCellAt(4, 2))
-				loc_4_2 = true;
-			else if (selected == gameBoard.getCellAt(3, 4))
-				loc_3_4 = true;
-			else if (selected == gameBoard.getCellAt(4, 5))
-				loc_4_5 = true;
+			if (selected == gameBoard.getCellAt(4, 1))
+				loc_4_1 = true;
+			else if (selected == gameBoard.getCellAt(5, 0))
+				loc_5_0 = true;
+			else if (selected == gameBoard.getCellAt(5, 2))
+				loc_5_2 = true;
 			else
 				fail("Invalid target selected");
 		}
 		// ensure each target was selected at least once
-		assertTrue(loc_4_2);
-		assertTrue(loc_3_4);
-		assertTrue(loc_4_5);	
+		assertTrue(loc_4_1);
+		assertTrue(loc_5_0);
+		assertTrue(loc_5_2);	
 	}
 }
