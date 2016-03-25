@@ -39,6 +39,13 @@ public class Board {
 	public void loadConfigFiles(){}
 	public void selectAnswer(){}
 	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
+		int i;
+		for (i=0; i<players.size(); i++) {
+			if (players.get(i).equals(accusingPlayer)) break;
+		}
+		for (int j = 0; j<players.size(); j++) {
+			players.get((i+j)%players.size()).disproveSuggestion(suggestion);
+		}
 		return null;
 	}
 	public boolean checkAccustaion(Solution accusation){
@@ -167,10 +174,7 @@ public class Board {
 		in.close();
 		
 		theAnswer = new Solution(solPerson, solRoom, solWeapon);
-		
-		System.out.println(theAnswer.room);
-		System.out.println(theAnswer.person);
-		System.out.println(theAnswer.weapon);
+	
 	}
 
 

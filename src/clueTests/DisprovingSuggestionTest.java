@@ -147,7 +147,7 @@ public class DisprovingSuggestionTest {
 		suggestion = new Solution(mustard, mercury, revolver);
 		assertEquals(mercury, board.handleSuggestion(suggestion, cpu1, board.getCellAt(0, 0)));
 		
-		// Testing that the fruthest person can disprove
+		// Testing that the farthest person can disprove
 		suggestion = new Solution(mustard, venus, revolver);
 		assertEquals(revolver, board.handleSuggestion(suggestion, p1, board.getCellAt(0, 0)));
 

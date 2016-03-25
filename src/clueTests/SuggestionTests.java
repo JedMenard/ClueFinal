@@ -27,10 +27,10 @@ public class SuggestionTests {
 
 
 	@Test
-	public void makeSuggestion(){
+	public void makeSuggestionTest(){
 		// Setting up the computer player's position and what cards have been seen
 		ComputerPlayer comp = new ComputerPlayer();
-		comp.SeeCard(new Card());
+		comp.SeeCard(new Card("Colonel Mustard", CardType.PERSON));
 		comp.SeeCard(new Card("Revolver", CardType.WEAPON));
 		comp.setLocation(9, 5);
 		

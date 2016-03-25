@@ -37,7 +37,29 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public Solution makeSuggestion(Board board, BoardCell location) {
-		return null;
+		Random r = new Random();
+		ArrayList<Card> weaps = new ArrayList<Card>();
+		ArrayList<Card> peeps = new ArrayList<Card>();
+		for (Card c: board.deck) {
+			if (!seenCard(c)){
+				if (c.getType() == CardType.WEAPON) weaps.add(c);
+				else if (c.getType() == CardType.PERSON) peeps.add(c);
+			}
+		}
+		
+		String person = peeps.get(r.nextInt(peeps.size())).getName();
+		String weapon = weaps.get(r.nextInt(weaps.size())).getName();
+		String room = location.getName();
+		
+		return new Solution(person, room, weapon);
 	}
-
+	
+	private boolean seenCard(Card card) {
+		for(Card c : seenCards) {
+			if(c.equals(card)) {
+				return true;
+			}
+		} 
+		return false;
+	}
 }

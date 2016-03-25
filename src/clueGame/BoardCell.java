@@ -1,5 +1,11 @@
 package clueGame;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class BoardCell {
 	
 	private int row, col;
@@ -22,12 +28,10 @@ public class BoardCell {
 	}
 
 	public int getRow() {
-		// TODO Auto-generated method stub
 		return row;
 	}
 
 	public int getCol() {
-		// TODO Auto-generated method stub
 		return col;
 	}
 
@@ -54,6 +58,7 @@ public class BoardCell {
 	}
 
 	public void setDoorDirection(char d) {
+		
 		// TODO Auto-generated method stub
 		switch(d){
 		case 'R':
@@ -71,5 +76,28 @@ public class BoardCell {
 		}
 		isDoor=true;
 	}
-
+	
+	public String getName() {
+		try {
+			FileReader f = new FileReader("Legend.txt");
+			BufferedReader reader = new BufferedReader(f);
+			String line;
+			
+			while((line = reader.readLine()) != null) {
+				String[] split = line.split(", ");
+				
+				if(split[0].toCharArray()[0] == (this.initial)) {
+					reader.close();
+					f.close();
+					return split[1];
+				}
+			}
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("No");
+		} catch (IOException e){
+			System.out.println("Even more no");
+		}
+		return "!";
+	}
 }

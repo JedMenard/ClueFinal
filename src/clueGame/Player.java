@@ -16,10 +16,16 @@ public class Player {
 	private int row, column;	
 	private Color color;
 	private Set<Card> myCards;
-	private static Set<Card> seenCards;
+	protected Set<Card> seenCards;
 	protected BoardCell lastCell;
 		
 	public Card disproveSuggestion(Solution suggestion) {
+		for(Card c : myCards) {
+			if(c.getName().equals(suggestion.person) || c.getName().equals(suggestion.room) || c.getName().equals(suggestion.weapon)) {
+				return c;
+			}
+		}
+		
 		return null;
 	}
 	
