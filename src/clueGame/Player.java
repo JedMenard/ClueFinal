@@ -18,17 +18,22 @@ public class Player {
 	private Set<Card> myCards;
 	protected Set<Card> seenCards;
 	protected BoardCell lastCell;
-		
+
 	public Card disproveSuggestion(Solution suggestion) {
+		ArrayList<Card> cards = new ArrayList<Card>();
 		for(Card c : myCards) {
 			if(c.getName().equals(suggestion.person) || c.getName().equals(suggestion.room) || c.getName().equals(suggestion.weapon)) {
-				return c;
-			}
+				cards.add(c);
+			}			
 		}
-		
+		if (cards.size()>0) {
+			Random r = new Random();
+			int ran = r.nextInt(cards.size());
+			return cards.get(ran);
+		}
 		return null;
 	}
-	
+
 	public Player() {
 		setPlayerName("The Cook");
 		setRow(0); setColumn(0);
@@ -47,16 +52,16 @@ public class Player {
 	public void AddCard(Card c) {
 		myCards.add(c);
 	}
-	
+
 	//for test
 	public Set<Card> GetMyCards() {
 		return myCards;
 	}
-	
+
 	public void SeeCard(Card c){
 		seenCards.add(c);
 	}
-	
+
 	public void setLocation(int r, int c){
 		setRow(r);
 		setColumn(c);
@@ -64,23 +69,23 @@ public class Player {
 
 	public static ArrayList<Player> loadPlayersFromFile(String string) {
 		ArrayList<Player> players = new ArrayList<Player>();
-		
+
 		try {
 			Random rand = new Random();
 			FileReader fr;
 			fr = new FileReader(string);
 			Scanner in = new Scanner(fr);
-			
+
 			while(in.hasNext()){
 				String name = in.next();
 				String color = in.next();
 				String row = in.next();
 				String col = in.next();
-				
+
 				name = name.substring(0, name.lastIndexOf(","));
 				color = color.substring(0, color.lastIndexOf(","));
 				row = row.substring(0, row.lastIndexOf(","));
-				
+
 				Player temp = new Player(name, color, row, col);
 				players.add(temp);
 			}

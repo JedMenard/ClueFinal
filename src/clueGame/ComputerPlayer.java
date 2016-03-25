@@ -3,6 +3,16 @@ package clueGame;
 import java.util.*;
 
 public class ComputerPlayer extends Player {
+	
+	public ComputerPlayer(String n){
+		super();
+		super.setPlayerName(n);
+	}
+
+	public ComputerPlayer() {
+		super();
+	}
+
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		ArrayList<BoardCell> doors = new ArrayList<BoardCell>();
 		ArrayList<BoardCell> notDoors = new ArrayList<BoardCell>();

@@ -40,13 +40,15 @@ public class Board {
 	public void selectAnswer(){}
 	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
 		int i;
+		Card result = null;
 		for (i=0; i<players.size(); i++) {
 			if (players.get(i).equals(accusingPlayer)) break;
 		}
-		for (int j = 0; j<players.size(); j++) {
-			players.get((i+j)%players.size()).disproveSuggestion(suggestion);
+		for (int j = 1; j<players.size(); j++) {
+			result = players.get((i+j)%players.size()).disproveSuggestion(suggestion);
+			if (result != null) break;
 		}
-		return null;
+		return result;
 	}
 	public boolean checkAccustaion(Solution accusation){
 		if (accusation == theAnswer) return true;
@@ -359,4 +361,8 @@ public class Board {
 		this.theAnswer = theAnswer;
 	}
 
+	// Added 3-24. For use in testing only.
+	public void resetPlayers(){
+		players = new ArrayList<Player>();
+	}
 }

@@ -111,10 +111,10 @@ public class DisprovingSuggestionTest {
 	@Test
 	public void testAllQueried(){
 		// Initializing the players
-		ComputerPlayer cpu1 = new ComputerPlayer();
-		ComputerPlayer cpu2 = new ComputerPlayer();
-		ComputerPlayer cpu3 = new ComputerPlayer();
-		HumanPlayer p1 = new HumanPlayer();
+		ComputerPlayer cpu1 = new ComputerPlayer("cpu1");
+		ComputerPlayer cpu2 = new ComputerPlayer("cpu2");
+		ComputerPlayer cpu3 = new ComputerPlayer("cpu3");
+		HumanPlayer p1 = new HumanPlayer("p1");
 		
 		// Giving them cards
 		cpu1.AddCard(scarlet);
@@ -123,6 +123,7 @@ public class DisprovingSuggestionTest {
 		p1.AddCard(plum);
 		
 		// Putting the players in the game
+		board.resetPlayers();
 		board.players.add(cpu1);
 		board.players.add(cpu2);
 		board.players.add(cpu3);
