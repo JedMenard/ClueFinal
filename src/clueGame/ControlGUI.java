@@ -15,6 +15,7 @@ import javax.swing.border.TitledBorder;
 public class ControlGUI extends JPanel {
 	
 	private JTextField name;
+	DrawPanel drawPanel;
 	
 	public ControlGUI(){
 		JPanel panel = createTurnControlPanel();
@@ -28,6 +29,9 @@ public class ControlGUI extends JPanel {
 		
 		panel = createResponsePanel();
 		add(panel);
+		
+		createDrawPanel();
+		add(drawPanel,BorderLayout.CENTER);
 	}
 	
 	private JPanel createTurnControlPanel(){
@@ -36,6 +40,7 @@ public class ControlGUI extends JPanel {
 		
 		JLabel label = new JLabel("Whose turn?");
 		JTextField whoseTurn = new JTextField();
+		whoseTurn.setEditable(false);
 		JButton nextPlayer = new JButton("Next player");
 		nextPlayer.setPreferredSize(new Dimension(100, 50));
 		JButton makeAccusation = new JButton("Make an accusation");
@@ -51,8 +56,9 @@ public class ControlGUI extends JPanel {
 	private JPanel createDiePanel(){
 		JPanel panel = new JPanel();
 		
-		JTextField roll = new JTextField("Roll");
-		roll.setEditable(false);
+		JTextField roll = new JTextField();
+		roll.setEditable(false);		
+		roll.setPreferredSize(new Dimension(100,30));
 		
 		panel.add(roll);
 
@@ -63,7 +69,9 @@ public class ControlGUI extends JPanel {
 	private JPanel createGuessPanel(){
 		JPanel panel = new JPanel();
 		
-		JTextField guess = new JTextField("Guess");
+		JTextField guess = new JTextField();
+		guess.setEditable(false);
+		guess.setPreferredSize(new Dimension(100,30));
 		
 		panel.add(guess);
 		
@@ -74,24 +82,38 @@ public class ControlGUI extends JPanel {
 	private JPanel createResponsePanel(){
 		JPanel panel = new JPanel();
 		
-		JTextField response = new JTextField("Response");
+		JTextField response = new JTextField();
 		response.setEditable(false);
+		response.setPreferredSize(new Dimension(100,30));
 		
 		panel.add(response);
 
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Guess Result"));
 		return panel;
 	}
+	
+	private void createDrawPanel() {
+		drawPanel = new DrawPanel();
+		drawPanel.setSize(100,100);
+		drawPanel.setVisible(true);
+		
+	}
+	
 
 	public static void main(String[] args) {
+		Board board = new Board();
+		board.initialize();
+		
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Control");
-		frame.setSize(500,160);
+		frame.setSize((board.getNumRows()*40>1000) ? board.getNumRows()*40 : 1000, board.getNumColumns()*40);
 		
 		ControlGUI gui = new ControlGUI();
-		frame.add(gui, BorderLayout.CENTER);
+		frame.add(gui, BorderLayout.SOUTH);
 		frame.setVisible(true);
+		
+		
 	}
 
 }
