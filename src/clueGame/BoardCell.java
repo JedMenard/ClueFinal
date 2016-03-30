@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 import javax.swing.JPanel;
 
-import com.sun.prism.Graphics;
-import com.sun.prism.paint.Color;
+import java.awt.Graphics;
+
 
 public class BoardCell extends JPanel {
 	
@@ -105,7 +105,6 @@ public class BoardCell extends JPanel {
 	}
 
 	public void draw(Graphics g){
-		g.
-		g.drawRect((float)(row*size.getHeight()), (float)(col*size.getWidth()), (float)size.getHeight(), (float)size.getWidth());
+		g.drawRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
 	}
 }

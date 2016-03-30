@@ -15,7 +15,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
-import com.sun.prism.Graphics;
+import java.awt.Graphics;
 
 public class Board extends JPanel {
 
@@ -350,9 +350,11 @@ public class Board extends JPanel {
 		adjMtx.put(b, l);
 	}
 
-	public void drawBoard(Graphics g){
-		for(int row = 0; row < numRows; row++){
-			for (int col = 0; col < numCols; col++){
+	@Override
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		for(int col = 0; col < numCols; col++){
+			for (int row = 0; row < numRows; row++){
 				board[row][col].draw(g);
 			}
 		}

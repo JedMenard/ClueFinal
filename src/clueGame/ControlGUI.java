@@ -16,7 +16,7 @@ import javax.swing.border.TitledBorder;
 public class ControlGUI extends JPanel {
 	
 	private JTextField name;
-	DrawPanel drawPanel;
+
 	
 	public ControlGUI(){
 		JPanel panel = createTurnControlPanel();
@@ -30,9 +30,7 @@ public class ControlGUI extends JPanel {
 		
 		panel = createResponsePanel();
 		add(panel);
-		
-		createDrawPanel();
-		add(drawPanel,BorderLayout.CENTER);
+
 	}
 	
 	private JPanel createTurnControlPanel(){
@@ -91,13 +89,6 @@ public class ControlGUI extends JPanel {
 
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Guess Result"));
 		return panel;
-	}
-	
-	private void createDrawPanel() {
-		drawPanel = new DrawPanel();
-		drawPanel.setSize(100,100);
-		drawPanel.setVisible(true);
-		
 	}
 
 }
