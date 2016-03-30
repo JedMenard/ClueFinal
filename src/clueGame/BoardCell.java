@@ -1,14 +1,21 @@
 package clueGame;
 
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class BoardCell {
+import javax.swing.JPanel;
+
+import com.sun.prism.Graphics;
+import com.sun.prism.paint.Color;
+
+public class BoardCell extends JPanel {
 	
 	private int row, col;
+	private static Dimension size = new Dimension(40,40);
 	private char initial;
 	private boolean isDoor;
 	private DoorDirection dir;
@@ -24,7 +31,7 @@ public class BoardCell {
 	}
 
 	public BoardCell() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public int getRow() {
@@ -41,25 +48,21 @@ public class BoardCell {
 	}
 
 	public boolean isDoorway() {
-		// TODO Auto-generated method stub
 		return isDoor;
 	}
 
 	public DoorDirection getDoorDirection() {
-		// TODO Auto-generated method stub
 		if(isDoor)
 			return dir;
 		else return null;
 	}
 
 	public char getInitial() {
-		// TODO Auto-generated method stub
 		return initial;
 	}
 
 	public void setDoorDirection(char d) {
 		
-		// TODO Auto-generated method stub
 		switch(d){
 		case 'R':
 			dir = DoorDirection.RIGHT;
@@ -99,5 +102,10 @@ public class BoardCell {
 			System.out.println("Even more no");
 		}
 		return "!";
+	}
+
+	public void draw(Graphics g){
+		g.
+		g.drawRect((float)(row*size.getHeight()), (float)(col*size.getWidth()), (float)size.getHeight(), (float)size.getWidth());
 	}
 }

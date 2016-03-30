@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JComponent;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
@@ -96,23 +97,6 @@ public class ControlGUI extends JPanel {
 		drawPanel = new DrawPanel();
 		drawPanel.setSize(100,100);
 		drawPanel.setVisible(true);
-		
-	}
-	
-
-	public static void main(String[] args) {
-		Board board = new Board();
-		board.initialize();
-		
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Control");
-		frame.setSize((board.getNumRows()*40>1000) ? board.getNumRows()*40 : 1000, board.getNumColumns()*40);
-		
-		ControlGUI gui = new ControlGUI();
-		frame.add(gui, BorderLayout.SOUTH);
-		frame.setVisible(true);
-		
 		
 	}
 

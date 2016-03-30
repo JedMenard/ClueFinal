@@ -53,3 +53,120 @@ f0b410a Added code to test disproving suggestions
 3d5be3d Impliment first half of card deck tests (loading) Correct size (21) Correct distribution (9 rooms, 6 people, 6 weapons) Contains specific cards All previous tests still pass Functions with Rader's layout and legend
 e640fd0 Add UML functions & variables
 9940bca Initial commit after code swap
+commit cce64d677eeba2025827386ad22cf8db4af510ab
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 19:09:51 2016 -0600
+
+    Finished tests for disproving suggestions
+
+commit 67ca2342a13c5ec5d665950720a1007e06a0ab58
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 18:27:16 2016 -0600
+
+    Passed tests for disproving a suggestion
+
+commit a467644bd23638abb890e98733f970a33b507198
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 17:00:53 2016 -0600
+
+    Pass random choice test
+
+commit 5e592bcbd8bd11f0a2d66a9704a9c6d243f8ea42
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 16:50:55 2016 -0600
+
+    Pass room preference test
+
+commit 72a8fa4cc12e76801a938fe9e2d74f030fbf2c99
+Merge: 16acf0a ecc5845
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 15:25:28 2016 -0600
+
+    Merge branch 'master' of https://github.com/JedMenard/Clue
+
+commit 16acf0a4ed99a565dd00c8de3d503f619390de76
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 15:25:11 2016 -0600
+
+    Corrected a misspelling of the word 'the'
+
+commit ecc584568e7af0e93975f36379ceb7491d909ae8
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Tue Mar 22 23:56:52 2016 -0600
+
+    Added tests for loading players
+
+commit 24be75233b9ba7a08b1c1b408bb601769993fc0b
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Tue Mar 22 23:04:17 2016 -0600
+
+    Fixed an infinite loop error with random numbers.
+
+commit aa2d8f61b9366f593b36215b65c411eb08f3eb82
+Author: bartlettmic <bartlettmic@gmail.com>
+Date:   Tue Mar 22 22:11:16 2016 -0600
+
+    Instantiate theAnswer
+
+commit d2bdd549bab82960d880b0895277fa8d0ee68ce5
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Tue Mar 22 17:42:40 2016 -0600
+
+    Added code to make the check accusation tests pass
+
+commit bea28138e447b907946564edea2c90c0d79c271a
+Author: rkomarov <xrzkx@ymail.com>
+Date:   Sun Mar 20 16:06:01 2016 -0600
+
+    Create selecting a target location tests
+
+commit 1fae8d0cdbd372e17161b960299f045dedd559de
+Author: rkomarov <xrzkx@ymail.com>
+Date:   Sun Mar 20 15:29:27 2016 -0600
+
+    Create Loading Player tests
+
+commit f0b410a9f754e3138bbbe1c32df7f6c489f2e304
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Sat Mar 19 17:35:46 2016 -0600
+
+    Added code to test disproving suggestions
+
+commit 1154864707dc8eaae11dacd73ea0c4cddd2ff75d
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Sat Mar 19 16:38:08 2016 -0600
+
+    Added tests to check accusations and make suggestions
+
+commit 731b26427ca5725a03dea2d1804fd80f8a0abed8
+Author: bartlettmic <bartlettmic@gmail.com>
+Date:   Sat Mar 19 02:04:41 2016 -0600
+
+    Second half of card testing
+    All cards are dealt
+    All players have same amount of cards +/- 1
+    No players have duplicates of a card
+    All previous tests still pass
+
+commit 3d5be3d6b738145706ec4ab50dc253861a69a333
+Author: bartlettmic <bartlettmic@gmail.com>
+Date:   Sat Mar 19 00:41:48 2016 -0600
+
+    Impliment first half of card deck tests (loading)
+    Correct size (21)
+    Correct distribution (9 rooms, 6 people, 6 weapons)
+    Contains specific cards
+    All previous tests still pass
+    Functions with Rader's layout and legend
+
+commit e640fd0aa7e1c0d728242e4b31f0e059657201e7
+Author: unknown <mbartlet@BB316B-14.adit.mines.edu>
+Date:   Thu Mar 10 16:35:29 2016 -0700
+
+    Add UML functions & variables
+
+commit 9940bca41d78975f8c76726003a93b47f8848572
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 10 16:13:42 2016 -0700
+
+    Initial commit after code swap

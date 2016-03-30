@@ -13,7 +13,11 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Board {
+import javax.swing.JPanel;
+
+import com.sun.prism.Graphics;
+
+public class Board extends JPanel {
 
 	public final int BOARD_SIZE = 50;
 	public final int PLAYER_AMOUNT = 6;
@@ -83,7 +87,6 @@ public class Board {
 				fout.flush();
 				fout.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -181,22 +184,18 @@ public class Board {
 
 
 	public static Map<Character, String> getRooms() {
-		// TODO Auto-generated method stub
 		return rooms;
 	}
 
 	public int getNumRows() {
-		// TODO Auto-generated method stub
 		return numRows;
 	}
 
 	public int getNumColumns() {
-		// TODO Auto-generated method stub
 		return numCols;
 	}
 
 	public BoardCell getCellAt(int i, int j) {
-		// TODO Auto-generated method stub
 		return board[i][j];
 	}
 
@@ -269,12 +268,10 @@ public class Board {
 	}
 
 	public LinkedList<BoardCell> getAdjList(int i, int j) {
-		// TODO Auto-generated method stub
 		return adjMtx.get(board[i][j]);
 	}
 
 	public Set<BoardCell> getTargets() {
-		// TODO Auto-generated method stub
 		return targets;
 	}
 
@@ -353,6 +350,14 @@ public class Board {
 		adjMtx.put(b, l);
 	}
 
+	public void drawBoard(Graphics g){
+		for(int row = 0; row < numRows; row++){
+			for (int col = 0; col < numCols; col++){
+				board[row][col].draw(g);
+			}
+		}
+	}
+	
 	// Added 3-19. For use in testing only.
 	public Solution getTheAnswer() {
 		return theAnswer;
