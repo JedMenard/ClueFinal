@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,11 +24,13 @@ import java.awt.Graphics;
 
 
 public class BoardCell extends JPanel {
-	
+
 	private int row, col;
 	private static Dimension size = new Dimension(35,35);
 	private static HashMap<Character,Color> colorMap = new HashMap<Character,Color>();	
 	private char initial;
+	public boolean isName = false;
+	public String name;
 	private boolean isDoor;
 	private DoorDirection dir;
 
@@ -66,7 +69,7 @@ public class BoardCell extends JPanel {
 		if (initial != 'W') return true;
 		return false;
 	}
-	
+
 	public DoorDirection getDoorDirection() {
 		if(isDoor)
 			return dir;
@@ -78,7 +81,7 @@ public class BoardCell extends JPanel {
 	}
 
 	public void setDoorDirection(char d) {
-		
+
 		switch(d){
 		case 'R':
 			dir = DoorDirection.RIGHT;
@@ -95,16 +98,16 @@ public class BoardCell extends JPanel {
 		}
 		isDoor=true;
 	}
-	
+
 	public String getName() {
 		try {
 			FileReader f = new FileReader("Legend.txt");
 			BufferedReader reader = new BufferedReader(f);
 			String line;
-			
+
 			while((line = reader.readLine()) != null) {
 				String[] split = line.split(", ");
-				
+
 				if(split[0].toCharArray()[0] == (this.initial)) {
 					reader.close();
 					f.close();
@@ -124,11 +127,20 @@ public class BoardCell extends JPanel {
 		g.setColor(mapColor());
 		g.fillRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
 		if (initial == 'W') {
-		g.setColor(Color.WHITE);
-		g.drawRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
+			g.setColor(Color.WHITE);
+			g.drawRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
+		}
+		if (isName) {
+			
+			
+			g.setColor(Color.BLACK);
+			//g.setClip((int)(col*size.getWidth()), (int)(row*size.getHeight()), 400, 400);
+			g.drawString(name, (int)(col*size.getWidth()), (int)(row*size.getHeight()));
+			//g.setFont(new Font("TimesRoman", Font.PLAIN, 36));
+			
 		}
 	}
-	
+
 	public Color mapColor() {
 		switch (initial) {
 		case 'E': return Color.GREEN;

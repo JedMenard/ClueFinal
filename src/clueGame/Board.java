@@ -32,6 +32,7 @@ public class Board extends JPanel {
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
+	private Map<Character, String> roomNames = new HashMap<Character, String>(); 
 
 	// 3/18
 	//public ArrayList<Card> deck;
@@ -108,6 +109,7 @@ public class Board extends JPanel {
 		}
 
 		createPlayers();
+		nameCells();		
 	}
 
 	private void createPlayers() {
@@ -131,15 +133,16 @@ public class Board extends JPanel {
 
 		//Loads the room cards
 		while (in.hasNext()) {
-			if (in.hasNext()) in.next();
-			if (in.hasNext()) s = in.next();
+			String s2=null;
+			if (in.hasNext()) s2 = in.next();			
+			if (in.hasNext()) s = in.next();			
 			if (s.endsWith(",")) s = s.substring(0, s.lastIndexOf(','));
-			else { s += " " + in.next(); s = s.substring(0, s.lastIndexOf(',')); }			
+			else { s += " " + in.next(); s = s.substring(0, s.lastIndexOf(',')); }
+			roomNames.put(s2.charAt(0), s);
 			Card card = new Card(s, CardType.ROOM);
 			if (in.hasNext()) s = in.next();			
 			if (s.contains("Card")) deck.add(card);
 		}
-		
 		
 		String solRoom = deck.draw().getName();
 
@@ -229,10 +232,11 @@ public class Board extends JPanel {
 					throw new BadConfigFormatException();
 				tempBoard[row][col] = new BoardCell(row, col);
 				tempBoard[row][col].setInitial(cell.charAt(0));
-				// TAKE OUT SECOND CONDITION IN FOLLLOWING IF STATEMENT ONCE DEALING WITH 'N' AS SECOND CHAR
-				// WE DON'T KNOW WHAT IT IS, SORRY
 				if(cell.length()==2 && cell.charAt(1) != 'N'){
 					tempBoard[row][col].setDoorDirection(cell.charAt(1));
+				}
+				else if (cell.length()==2 && cell.charAt(1) == 'N') {
+					tempBoard[row][col].isName = true;
 				}
 				col++;
 				str = str.substring(str.indexOf(',')+1);
@@ -344,6 +348,15 @@ public class Board extends JPanel {
 			}
 		}
 		adjMtx.put(b, l);
+	}
+	
+	private void nameCells(){
+		for (int row = 0; row < numRows; row++){
+			for (int col = 0; col < numCols; col++){
+				board[row][col].name = roomNames.get(board[row][col].getInitial());
+				System.out.println(board[row][col].name);
+			}
+		}
 	}
 
 	@Override
