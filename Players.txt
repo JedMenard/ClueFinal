@@ -1,5 +1,6 @@
-Player1, Red, 0, 3
-CPU1, Blue, 13, 0
-CPU2, Green, 21, 6
-CPU3, Orange, 5, 22
-CPU4, Purple, 10, 22
+Mrs. Peacock, Blue, 0, 3
+Miss Scarlet, Red, 13, 0
+Professor Plum, Purple, 21, 6
+Mrs. White, White, 5, 22
+Colonel Mustard, Yellow, 10, 22
+The Cook, Orange, 0, 20

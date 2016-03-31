@@ -1,23 +1,29 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JPanel;
+
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
-public class Player {
+public class Player extends JPanel {
 	private String playerName;
 	private int row, column;	
 	private Color color;
 	private Set<Card> myCards;
 	protected Set<Card> seenCards;
 	protected BoardCell lastCell;
+	private static Dimension size = new Dimension(35,35);	
 
 	public Card disproveSuggestion(Solution suggestion) {
 		ArrayList<Card> cards = new ArrayList<Card>();
@@ -35,18 +41,16 @@ public class Player {
 	}
 
 	public Player() {
-		setPlayerName("The Cook");
-		setRow(0); setColumn(0);
-		setColor(Color.BLUE);
+		setPlayerName("The Cook");		
+		setRow(0); setColumn(0);		
 		myCards = new HashSet<Card>();
-		seenCards = new HashSet<Card>();
+		seenCards = new HashSet<Card>();		
 	}
 
-	public Player(String n, String c, String r, String col){
-		playerName = n;
-		color = Color.getColor(c);
+	public Player(String n, String r, String c){
+		playerName = n;		
 		row = Integer.parseInt(r);
-		column = Integer.parseInt(col);
+		column = Integer.parseInt(c);
 	}
 
 	public void AddCard(Card c) {
@@ -86,7 +90,7 @@ public class Player {
 				color = color.substring(0, color.lastIndexOf(","));
 				row = row.substring(0, row.lastIndexOf(","));
 
-				Player temp = new Player(name, color, row, col);
+				Player temp = new Player(name, row, col);
 				players.add(temp);
 			}
 		} catch (FileNotFoundException e) {
@@ -136,4 +140,22 @@ public class Player {
 	public void setLastCell(BoardCell lastCell) {
 		this.lastCell = lastCell;
 	}
+	
+	public void draw(Graphics g){
+		if (color == null) {
+			Random ran = new Random();
+			color = new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255));
+		}
+		g.setColor(color);
+		g.fillOval((int)(column*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
+		g.setColor(Color.WHITE);
+		g.drawOval((int)(column*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());		
+	}
+
+//	public Color mapColor() {
+//			Random ran = new Random();
+//			if (!colorMap.containsKey(playerName)) colorMap.put(playerName, new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255)));
+//			return colorMap.get(playerName);					
+//	}
+	
 }

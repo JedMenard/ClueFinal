@@ -105,7 +105,22 @@ public class Board extends JPanel {
 			System.out.println("Can't find card file");
 		}
 
+		createPlayers();
+	}
+
+	private void createPlayers() {
 		//Creates 1 human player and 5 computer players and distributes cards.
+		ArrayList<BoardCell> walls = new ArrayList<BoardCell>();
+		for (int i=0; i<numCols; i++) {
+			if (!board[0][i].isRoom()) walls.add(board[0][i]);
+			if (!board[numRows-1][i].isRoom()) walls.add(board[numRows-1][i]);
+		}
+		for (int i=0; i<numRows; i++) {
+			if (!board[i][0].isRoom()) walls.add(board[i][0]);
+			if (!board[i][numCols-1].isRoom()) walls.add(board[i][numCols-1]);
+		}
+		Random r = new Random();
+		
 		players = new ArrayList<Player>(); 
 		HumanPlayer human = new HumanPlayer();
 		players.add(human);
@@ -115,9 +130,8 @@ public class Board extends JPanel {
 		}
 		for (int i = 0; i < deck.size(); i++) {
 			players.get(i%PLAYER_AMOUNT).AddCard(deck.get(i));
-		}		
+		}
 	}
-
 
 	//This is the function which tries to load the deck of cards from cards.txt and legend.txt
 	public void loadCards() throws FileNotFoundException {
@@ -357,6 +371,9 @@ public class Board extends JPanel {
 			for (int row = 0; row < numRows; row++){
 				board[row][col].draw(g);
 			}
+		}
+		for (Player p: players) {
+			p.draw(g);
 		}
 	}
 	

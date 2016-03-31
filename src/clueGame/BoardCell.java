@@ -62,6 +62,11 @@ public class BoardCell extends JPanel {
 		return isDoor;
 	}
 
+	public boolean isRoom() {
+		if (initial != 'W') return true;
+		return false;
+	}
+	
 	public DoorDirection getDoorDirection() {
 		if(isDoor)
 			return dir;
