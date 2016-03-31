@@ -1,6 +1,6 @@
-Mrs. Peacock, Blue, 0, 3
-Miss Scarlet, Red, 13, 0
-Professor Plum, Purple, 21, 6
-Mrs. White, White, 5, 22
-Colonel Mustard, Yellow, 10, 22
-The Cook, Orange, 0, 20
+Mrs. Peacock,Blue,0,3,
+Miss Scarlet,Red,13,0,
+Professor Plum,Magenta,21,6,
+Mrs. White,White,5,22,
+Colonel Mustard,Yellow,10,22,
+The Cook,Orange,0,15,

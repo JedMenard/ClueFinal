@@ -34,7 +34,8 @@ public class Board extends JPanel {
 	private Set<BoardCell> targets;
 
 	// 3/18
-	public ArrayList<Card> deck;	
+	//public ArrayList<Card> deck;
+	public Deck deck;
 	public ArrayList<Player> players;	
 
 	// 3/10
@@ -70,6 +71,7 @@ public class Board extends JPanel {
 	}
 
 	public void initialize(){
+		players = Player.loadPlayersFromFile("Players.txt");
 		rooms = new HashMap<Character, String>();
 		adjMtx = new HashMap<BoardCell,LinkedList<BoardCell>>();
 
@@ -109,28 +111,11 @@ public class Board extends JPanel {
 	}
 
 	private void createPlayers() {
-		//Creates 1 human player and 5 computer players and distributes cards.
-		ArrayList<BoardCell> walls = new ArrayList<BoardCell>();
-		for (int i=0; i<numCols; i++) {
-			if (!board[0][i].isRoom()) walls.add(board[0][i]);
-			if (!board[numRows-1][i].isRoom()) walls.add(board[numRows-1][i]);
-		}
-		for (int i=0; i<numRows; i++) {
-			if (!board[i][0].isRoom()) walls.add(board[i][0]);
-			if (!board[i][numCols-1].isRoom()) walls.add(board[i][numCols-1]);
-		}
-		Random r = new Random();
-		
-		players = new ArrayList<Player>(); 
-		HumanPlayer human = new HumanPlayer();
-		players.add(human);
-		while (players.size() < PLAYER_AMOUNT) {
-			ComputerPlayer cp = new ComputerPlayer();
-			players.add(cp);
-		}
-		for (int i = 0; i < deck.size(); i++) {
-			players.get(i%PLAYER_AMOUNT).AddCard(deck.get(i));
-		}
+		players = Player.loadPlayersFromFile("Players.txt"); 
+
+		for (int i = 0; !deck.empty(); i++)  {
+			players.get(i%PLAYER_AMOUNT).AddCard(deck.draw());
+		}		
 	}
 
 	//This is the function which tries to load the deck of cards from cards.txt and legend.txt
@@ -138,7 +123,7 @@ public class Board extends JPanel {
 		//initialize deck, and the reader for the files
 		//I used separate files because the nextline() was being difficult to work with when looking
 		//	for multiple different types of text structures.
-		deck = new ArrayList<Card>();
+		deck = new Deck();
 		Random rand = new Random();
 		FileReader legend = new FileReader(leg);		
 		Scanner in = new Scanner(legend);
@@ -156,26 +141,22 @@ public class Board extends JPanel {
 		}
 		
 		
-		String solRoom = deck.get(rand.nextInt(deck.size())).getName();
+		String solRoom = deck.draw().getName();
 
 		in.close();
-		FileReader people = new FileReader("People.txt");
-		in = new Scanner(people);
 
-		//Loads the people cards
-		while (in.hasNextLine()) {
-			s = in.nextLine();			
-			Card card = new Card(s, CardType.PERSON);
-			deck.add(card);
+		//Loads the people cards		
+		for (Player p : players){
+			deck.add(new Card(p.getPlayerName(), CardType.PERSON));
 		}
 		
 		Card c = new Card();
 		do {
-			c = deck.get(rand.nextInt(deck.size()));
+			c = deck.getRand();
 		}while (c.getType() != CardType.PERSON);
 		String solPerson = c.getName();
+		deck.del(c);
 
-		in.close();
 		FileReader weapons = new FileReader("Weapons.txt");
 		in = new Scanner(weapons);
 
@@ -187,9 +168,10 @@ public class Board extends JPanel {
 		}		
 		
 		while (c.getType() != CardType.WEAPON) {
-			c = deck.get(rand.nextInt(deck.size()));
+			c = deck.getRand();
 		}
 		String solWeapon = c.getName();
+		deck.del(c);
 		in.close();
 		
 		theAnswer = new Solution(solPerson, solRoom, solWeapon);

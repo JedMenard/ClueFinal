@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,8 +14,6 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.JPanel;
-
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class Player extends JPanel {
 	private String playerName;
@@ -47,10 +46,19 @@ public class Player extends JPanel {
 		seenCards = new HashSet<Card>();		
 	}
 
-	public Player(String n, String r, String c){
+	public Player(String n, String col, String r, String c){
 		playerName = n;		
 		row = Integer.parseInt(r);
 		column = Integer.parseInt(c);
+		//color = Color.getColor(col.toLowerCase());		
+		myCards = new HashSet<Card>();
+		seenCards = new HashSet<Card>();
+		try {
+		    Field field = Class.forName("java.awt.Color").getField(col.toLowerCase());
+		    color = (Color)field.get(null);
+		} catch (Exception e) {
+		    color = null; // Not defined
+		}		
 	}
 
 	public void AddCard(Card c) {
@@ -75,29 +83,29 @@ public class Player extends JPanel {
 		ArrayList<Player> players = new ArrayList<Player>();
 
 		try {
-			Random rand = new Random();
 			FileReader fr;
 			fr = new FileReader(string);
-			Scanner in = new Scanner(fr);
+			Scanner line = new Scanner(fr);		
 
-			while(in.hasNext()){
+			while(line.hasNext()){
+				Scanner in = new Scanner(line.nextLine());
+				
+				in.useDelimiter(",");
+								
 				String name = in.next();
 				String color = in.next();
 				String row = in.next();
 				String col = in.next();
 
-				name = name.substring(0, name.lastIndexOf(","));
-				color = color.substring(0, color.lastIndexOf(","));
-				row = row.substring(0, row.lastIndexOf(","));
-
-				Player temp = new Player(name, row, col);
+				Player temp = new Player(name, color, row, col);
 				players.add(temp);
+				
+				in.close();
 			}
+			line.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
-		// TODO Auto-generated method stub
+		}
 		return players;
 	}
 
@@ -127,10 +135,6 @@ public class Player extends JPanel {
 
 	public Color getColor() {
 		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
 	}
 
 	public BoardCell getLastCell() {

@@ -32,14 +32,14 @@ public class cardTests {
 	//	i.e. 9 rooms, 6 characters, 6 weapons as mentioned in the rules, totaling to 21.
 	@Test
 	public void testLoad() {
-		assertEquals(board.deck.size(), 21);		
+		assertEquals(board.deck.allCards.size(), 21);		
 	}
 
 	@Test
 	//Makes sure the correct amount of each type of card are present in the deck
 	public void testQuantity() {
 		int rooms = 0, people = 0, weapons = 0;
-		for (Card c: board.deck) {
+		for (Card c: board.deck.allCards) {
 			if (c.getType() == CardType.ROOM) rooms++;
 			if (c.getType() == CardType.PERSON) people++;
 			if (c.getType() == CardType.WEAPON) weapons++;
@@ -56,7 +56,7 @@ public class cardTests {
 		Card card2 = new Card("The Cook", CardType.PERSON);
 		Card card3 = new Card("Rope", CardType.WEAPON);
 		int truths = 0;		
-		for (Card c: board.deck) {
+		for (Card c: board.deck.allCards) {
 			if (c.equals(card1)) truths++;
 			if (c.equals(card2)) truths++;
 			if (c.equals(card3)) truths++;
@@ -75,7 +75,7 @@ public class cardTests {
 				if (board.deck.contains(c)) truths++;
 			}
 		}
-		assertEquals(board.deck.size(),truths);
+		assertEquals(board.deck.allCards.size()-3,truths);
 	}
 
 	@Test

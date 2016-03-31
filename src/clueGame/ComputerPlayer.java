@@ -50,7 +50,7 @@ public class ComputerPlayer extends Player {
 		Random r = new Random();
 		ArrayList<Card> weaps = new ArrayList<Card>();
 		ArrayList<Card> peeps = new ArrayList<Card>();
-		for (Card c: board.deck) {
+		for (Card c: board.deck.deck) {
 			if (!seenCard(c)){
 				if (c.getType() == CardType.WEAPON) weaps.add(c);
 				else if (c.getType() == CardType.PERSON) peeps.add(c);
