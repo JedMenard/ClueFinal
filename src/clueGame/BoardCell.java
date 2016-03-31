@@ -5,9 +5,19 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.swing.JPanel;
+import javax.swing.text.html.HTMLDocument.Iterator;
+
+import java.awt.Color;
 
 import java.awt.Graphics;
 
@@ -15,7 +25,8 @@ import java.awt.Graphics;
 public class BoardCell extends JPanel {
 	
 	private int row, col;
-	private static Dimension size = new Dimension(40,40);
+	private static Dimension size = new Dimension(35,35);
+	private static HashMap<Character,Color> colorMap = new HashMap<Character,Color>();	
 	private char initial;
 	private boolean isDoor;
 	private DoorDirection dir;
@@ -105,6 +116,32 @@ public class BoardCell extends JPanel {
 	}
 
 	public void draw(Graphics g){
+		g.setColor(mapColor());
+		g.fillRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
+		if (initial == 'W') {
+		g.setColor(Color.WHITE);
 		g.drawRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
+		}
+	}
+	
+	public Color mapColor() {
+		switch (initial) {
+		case 'E': return Color.GREEN;
+		case 'S': return Color.decode("#DEB887"); //Burlywood!
+		case 'V': return Color.orange;
+		case 'N': return Color.blue;
+		case 'M': return Color.gray;
+		case 'J': return new Color(255,255,125);
+		case 'A': return Color.red;
+		case 'P': return Color.magenta;
+		case 'U': return Color.CYAN;
+		case 'W': return Color.black;
+		case 'X': return Color.yellow;
+		default:
+			Random ran = new Random();
+			if (!colorMap.containsKey(initial)) colorMap.put(initial, new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255)));
+			return colorMap.get(initial);
+			//return new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255));
+		}
 	}
 }

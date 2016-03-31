@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 
 public class ClueGame extends JFrame {
-	Board board;
+	public static Board board;
 	
 	public ClueGame(){
 		super();
@@ -19,8 +19,6 @@ public class ClueGame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		Board board = new Board();
-		board.initialize();
 		ClueGame ourGame = new ClueGame();
 		
 		ourGame.setSize((board.getNumRows()*40>1000) ? board.getNumRows()*40 : 1000, board.getNumColumns()*40);
