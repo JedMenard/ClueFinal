@@ -21,10 +21,13 @@ public class ClueGame extends JFrame {
 	public static void main(String[] args) {
 		ClueGame ourGame = new ClueGame();
 		
+		
 		ourGame.setSize((board.getNumRows()*40>1000) ? board.getNumRows()*40 : 1000, board.getNumColumns()*40);
 		
+		DetectiveNotes notes = new DetectiveNotes();
 		ControlGUI gui = new ControlGUI();
 		ourGame.add(gui, BorderLayout.SOUTH);
+		ourGame.add(notes, BorderLayout.CENTER);
 		ourGame.setVisible(true);
 		
 	}
