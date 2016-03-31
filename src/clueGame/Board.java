@@ -362,7 +362,7 @@ public class Board extends JPanel {
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		for(int col = 0; col < numCols; col++){
+		for(int col = numCols-1; col >= 0; col--){
 			for (int row = 0; row < numRows; row++){
 				board[row][col].draw(g);
 			}

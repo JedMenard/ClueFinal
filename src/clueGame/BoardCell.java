@@ -18,6 +18,8 @@ import java.util.TreeMap;
 import javax.swing.JPanel;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+import com.sun.prism.BasicStroke;
+
 import java.awt.Color;
 
 import java.awt.Graphics;
@@ -129,15 +131,31 @@ public class BoardCell extends JPanel {
 		if (initial == 'W') {
 			g.setColor(Color.WHITE);
 			g.drawRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
+			
 		}
-		if (isName) {
-			
-			
+		
+		if (isDoor) {
+			g.setColor(Color.DARK_GRAY);			
+			switch(dir) {
+			case UP:				
+				g.fillRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getWidth(), (int)(size.getHeight()*.15));
+				break;
+			case DOWN:
+				g.fillRect((int)(col*size.getWidth()), (int)((row+1)*size.getHeight()), (int)size.getWidth(), -(int)(size.getHeight()*.15));
+				break;
+			case LEFT:
+				g.fillRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)(size.getHeight()*.15), (int)size.getWidth());
+				break;
+			case RIGHT:
+				g.fillRect((int)((col+1)*size.getWidth()), (int)(row*size.getHeight()), -(int)(size.getHeight()*.15), (int)size.getWidth());
+				break;				
+			default:
+			}
+		}
+		
+		if (isName) {			
 			g.setColor(Color.BLACK);
-			//g.setClip((int)(col*size.getWidth()), (int)(row*size.getHeight()), 400, 400);
-			g.drawString(name, (int)(col*size.getWidth()), (int)(row*size.getHeight()));
-			//g.setFont(new Font("TimesRoman", Font.PLAIN, 36));
-			
+			g.drawString(name, (int)(col*size.getWidth()), (int)(row*size.getHeight()));						
 		}
 	}
 
@@ -147,7 +165,7 @@ public class BoardCell extends JPanel {
 		case 'S': return Color.decode("#DEB887"); //Burlywood!
 		case 'V': return Color.orange;
 		case 'N': return Color.blue;
-		case 'M': return Color.gray;
+		case 'M': return Color.GRAY;
 		case 'J': return new Color(255,255,125);
 		case 'A': return Color.red;
 		case 'P': return Color.magenta;
