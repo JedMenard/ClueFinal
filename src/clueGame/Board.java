@@ -32,12 +32,13 @@ public class Board extends JPanel {
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
-	private Map<Character, String> roomNames = new HashMap<Character, String>(); 
+	protected static Map<Character, String> roomNames = new HashMap<Character, String>(); 
+	protected static ArrayList<Card> weaponCards;
 
 	// 3/18
 	//public ArrayList<Card> deck;
 	public Deck deck;
-	public ArrayList<Player> players;	
+	public static ArrayList<Player> players;	
 
 	// 3/10
 	private Solution theAnswer;
@@ -74,7 +75,9 @@ public class Board extends JPanel {
 	public void initialize(){
 		players = Player.loadPlayersFromFile("Players.txt");
 		rooms = new HashMap<Character, String>();
+		weaponCards = new ArrayList<Card>();
 		adjMtx = new HashMap<BoardCell,LinkedList<BoardCell>>();
+		
 
 		try {
 			loadRoomConfig();
@@ -168,6 +171,7 @@ public class Board extends JPanel {
 			s = in.nextLine();			
 			Card card = new Card(s, CardType.WEAPON);
 			deck.add(card);
+			weaponCards.add(card);
 		}		
 		
 		while (c.getType() != CardType.WEAPON) {

@@ -25,9 +25,12 @@ public class ClueGame extends JFrame {
 		ourGame.setSize((board.getNumRows()*40>1000) ? board.getNumRows()*40 : 1000, board.getNumColumns()*40);
 		
 		DetectiveNotes notes = new DetectiveNotes();
+		notes.setSize(500,500);
+		notes.setVisible(true);
+		
+		
 		ControlGUI gui = new ControlGUI();
 		ourGame.add(gui, BorderLayout.SOUTH);
-		ourGame.add(notes, BorderLayout.CENTER);
 		ourGame.setVisible(true);
 		
 	}
