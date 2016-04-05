@@ -19,6 +19,7 @@ import java.awt.Graphics;
 
 public class Board extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	public final int BOARD_SIZE = 50;
 	public final int PLAYER_AMOUNT = 6;
 	private static HashMap<Character, String> rooms;
@@ -43,8 +44,7 @@ public class Board extends JPanel {
 	// 3/10
 	private Solution theAnswer;
 
-	public void loadConfigFiles(){}
-	public void selectAnswer(){}
+	// Handles when a suggestion is made 
 	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
 		int i;
 		Card result = null;
@@ -57,27 +57,32 @@ public class Board extends JPanel {
 		}
 		return result;
 	}
+
+	// Checks an accusation against the correct answer
 	public boolean checkAccustaion(Solution accusation){
 		if (accusation == theAnswer) return true;
 		else return false;
 	}
 
+	// Default Constructor
 	public Board() {
 		leg = "Legend.txt";
 		lay = "Layout.csv";		
 	}
 
+	// Constructor
 	public Board(String string, String string2) {
 		lay = string;
 		leg = string2;		
 	}
 
+	// Initializes the board
 	public void initialize(){
 		players = Player.loadPlayersFromFile("Players.txt");
 		rooms = new HashMap<Character, String>();
 		weaponCards = new ArrayList<Card>();
 		adjMtx = new HashMap<BoardCell,LinkedList<BoardCell>>();
-		
+
 
 		try {
 			loadRoomConfig();
@@ -115,6 +120,7 @@ public class Board extends JPanel {
 		nameCells();		
 	}
 
+	// Loads the players and deals the cards
 	private void createPlayers() {
 		players = Player.loadPlayersFromFile("Players.txt"); 
 
@@ -129,7 +135,6 @@ public class Board extends JPanel {
 		//I used separate files because the nextline() was being difficult to work with when looking
 		//	for multiple different types of text structures.
 		deck = new Deck();
-		Random rand = new Random();
 		FileReader legend = new FileReader(leg);		
 		Scanner in = new Scanner(legend);
 		String s = null;
@@ -146,7 +151,7 @@ public class Board extends JPanel {
 			if (in.hasNext()) s = in.next();			
 			if (s.contains("Card")) deck.add(card);
 		}
-		
+
 		String solRoom = deck.draw().getName();
 
 		in.close();
@@ -155,7 +160,7 @@ public class Board extends JPanel {
 		for (Player p : players){
 			deck.add(new Card(p.getPlayerName(), CardType.PERSON));
 		}
-		
+
 		Card c = new Card();
 		do {
 			c = deck.getRand();
@@ -173,35 +178,20 @@ public class Board extends JPanel {
 			deck.add(card);
 			weaponCards.add(card);
 		}		
-		
+
 		while (c.getType() != CardType.WEAPON) {
 			c = deck.getRand();
 		}
 		String solWeapon = c.getName();
 		deck.del(c);
 		in.close();
-		
+
 		theAnswer = new Solution(solPerson, solRoom, solWeapon);
-	
+
 	}
 
 
-	public static Map<Character, String> getRooms() {
-		return rooms;
-	}
-
-	public int getNumRows() {
-		return numRows;
-	}
-
-	public int getNumColumns() {
-		return numCols;
-	}
-
-	public BoardCell getCellAt(int i, int j) {
-		return board[i][j];
-	}
-
+	// Loads the room legends into a map from a config file
 	public void loadRoomConfig() throws BadConfigFormatException, FileNotFoundException {
 		rooms = new HashMap<Character, String>();
 		FileReader legend = new FileReader(leg);
@@ -216,6 +206,7 @@ public class Board extends JPanel {
 		in.close();
 	}
 
+	// Loads the board from a config file
 	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException{
 		tempBoard = new BoardCell[BOARD_SIZE][BOARD_SIZE];
 		FileReader layout = new FileReader(lay);
@@ -271,14 +262,10 @@ public class Board extends JPanel {
 		in.close();
 	}
 
-	public LinkedList<BoardCell> getAdjList(int i, int j) {
-		return adjMtx.get(board[i][j]);
-	}
 
-	public Set<BoardCell> getTargets() {
-		return targets;
-	}
-
+	// Calculates the possible targets for a person at a given distance
+	// Calls a recursive helper function
+	// Call this function first
 	public void calcTargets(int row, int col, int steps) {
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
@@ -291,6 +278,8 @@ public class Board extends JPanel {
 		if(targets.contains(board[row][col])) targets.remove(board[row][col]);
 	}
 
+	// Recursively generates targets
+	// HELPER FUNCTION, DO NOT DIRECTLY CALL THIS FUNCTION
 	private void getAllTargets(BoardCell thisCell, int k, Set<BoardCell> visited) {
 
 		Set<BoardCell> myVisited = new HashSet<BoardCell>(visited);
@@ -308,6 +297,7 @@ public class Board extends JPanel {
 
 	}
 
+	// Calculates all the adjacent, non-room cells
 	public void calcAdjacencies(BoardCell b){
 
 		LinkedList<BoardCell> l = new LinkedList<BoardCell>();
@@ -353,16 +343,17 @@ public class Board extends JPanel {
 		}
 		adjMtx.put(b, l);
 	}
-	
+
+	// Gives all board cells an appropriate name for whatever kind of tile it is
 	private void nameCells(){
 		for (int row = 0; row < numRows; row++){
 			for (int col = 0; col < numCols; col++){
 				board[row][col].name = roomNames.get(board[row][col].getInitial());
-				System.out.println(board[row][col].name);
 			}
 		}
 	}
 
+	// Function to draw the board to the GUI
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -376,16 +367,33 @@ public class Board extends JPanel {
 		}
 	}
 	
-	// Added 3-19. For use in testing only.
+	// Below functions are used solely for testing
 	public Solution getTheAnswer() {
 		return theAnswer;
 	}
 	public void setTheAnswer(Solution theAnswer) {
 		this.theAnswer = theAnswer;
 	}
-
-	// Added 3-24. For use in testing only.
+	public static Map<Character, String> getRooms() {
+		return rooms;
+	}
+	public int getNumRows() {
+		return numRows;
+	}
+	public int getNumColumns() {
+		return numCols;
+	}
+	public BoardCell getCellAt(int i, int j) {
+		return board[i][j];
+	}
 	public void resetPlayers(){
 		players = new ArrayList<Player>();
 	}
+	public LinkedList<BoardCell> getAdjList(int i, int j) {
+		return adjMtx.get(board[i][j]);
+	}
+	public Set<BoardCell> getTargets() {
+		return targets;
+	}
+
 }

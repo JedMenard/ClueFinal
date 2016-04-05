@@ -23,7 +23,7 @@ public class ComputerPlayer extends Player {
 		
 		for(BoardCell t : targets) {
 			if(t == super.lastCell) {
-				continue;
+				notDoors.add(t);
 			} else if(t.isDoorway()) {
 				doors.add(t);
 			} else {
