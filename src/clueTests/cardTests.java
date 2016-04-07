@@ -14,7 +14,7 @@ import clueGame.Card;
 import clueGame.CardType;
 import clueGame.Player;
 
-public class cardTests {
+public class CardTests {
 	private static Board board;
 
 	@BeforeClass

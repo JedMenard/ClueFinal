@@ -15,7 +15,7 @@ import clueGame.BoardCell;
 import clueGame.DoorDirection;
 
 
-public class configTests {
+public class ConfigTests {
 
 	// Constants that I will use to test whether the file was loaded correctly
 		public static final int NUM_ROOMS = 11;
