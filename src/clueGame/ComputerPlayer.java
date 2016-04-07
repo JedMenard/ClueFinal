@@ -13,6 +13,10 @@ public class ComputerPlayer extends Player {
 		super();
 	}
 
+	public ComputerPlayer(String name, String color, String row, String col) {
+		super(name, color, row, col);
+	}
+
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		ArrayList<BoardCell> doors = new ArrayList<BoardCell>();
 		ArrayList<BoardCell> notDoors = new ArrayList<BoardCell>();

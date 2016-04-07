@@ -28,6 +28,7 @@ public class Board extends JPanel {
 	private int numCols;
 	private String leg;
 	private String lay;
+	public HumanPlayer p1;
 	
 	public Deck deck;	
 	private Solution theAnswer;
@@ -105,7 +106,9 @@ public class Board extends JPanel {
 
 		for (int i = 0; !deck.empty(); i++)  {
 			players.get(i%PLAYER_AMOUNT).AddCard(deck.draw());
-		}		
+		}
+		
+		
 	}
 
 	//This is the function which tries to load the deck of cards from cards.txt and legend.txt

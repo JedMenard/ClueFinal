@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 import javax.swing.*;
 
 public class ClueGame extends JFrame {
@@ -74,5 +75,7 @@ public class ClueGame extends JFrame {
 		ourGame.add(gui, BorderLayout.SOUTH);
 		ourGame.setVisible(true);		
 		
+		JOptionPane splash = new JOptionPane();
+		splash.showMessageDialog(ourGame, "You are Professor Plum, press Next Player to begin play.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

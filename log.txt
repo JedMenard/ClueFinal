@@ -170,3 +170,264 @@ Author: unknown <jmenard@BB316B-15.adit.mines.edu>
 Date:   Thu Mar 10 16:13:42 2016 -0700
 
     Initial commit after code swap
+commit cc376430763479530f1b274a354f313203358f59
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Apr 7 16:12:44 2016 -0600
+
+    Added comments to board's initialize function.
+
+commit 9995c5af0939f95548615ce4f80312d43b0d4172
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Apr 7 16:02:49 2016 -0600
+
+    Correctly ordered assertEquals parameters.
+
+commit dd3a5843b74d0a1d97cd8256763de59781af8231
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Apr 7 16:00:45 2016 -0600
+
+    Removed unused board adjacency tests
+
+commit 8169a2f205df2b57b033fe1364d8d7199f200df5
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Apr 7 15:56:58 2016 -0600
+
+    Renamed tests to follow standard naming conventions.
+
+commit 8632cd04154893f905e68dc148a573d7a97c7cd1
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Apr 7 15:54:28 2016 -0600
+
+    Made variable names more appropriate in makeSuggestion
+
+commit e365d53fdba66a3859a8713c80fc750d196d5925
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Apr 7 15:51:19 2016 -0600
+
+    Adjusted pickLocation function to be more accurate.
+
+commit 63d8c46f97e4416db6a4f4d2ec37f61fa1f55dc1
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Apr 7 15:41:23 2016 -0600
+
+    Cleaned up Player.java. Removed unused functions. Pair programming.
+
+commit ab008fa888ec3cec97ffc1bd8a5f68fa5ab5613b
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Thu Apr 7 12:26:48 2016 -0600
+
+    Moved some code around in Board.java to make it easier to read
+
+commit 8ee87199005e66a1b0d52ddfddc780b573d021c3
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Tue Apr 5 16:38:12 2016 -0600
+
+    Final commit before partner swap
+
+commit 39cc8aa6a393fd81db16941236a19fc8d0518d32
+Author: bartlettmic <bartlettmic@gmail.com>
+Date:   Mon Apr 4 17:00:38 2016 -0600
+
+    Detective notes in File menu
+
+commit 73f16949b4b9f88fb777803af2070b5acbb1152f
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Sun Apr 3 20:04:41 2016 -0600
+
+    Displays detective notes properly.
+
+commit 209bbff5d8e3cbdd39a3bd8831642e7a515cf03c
+Author: unknown <jmenard@BB316A-19.adit.mines.edu>
+Date:   Thu Mar 31 15:46:42 2016 -0600
+
+    Skeleton code for detective notes
+
+commit a5e2807f12b5db3c451d13335c74916dc41ccc97
+Author: unknown <jmenard@BB316A-19.adit.mines.edu>
+Date:   Thu Mar 31 15:46:27 2016 -0600
+
+    Skeleton code for detective notes
+
+commit 482e17f2cd937879363119e58d5e5e630190ad5f
+Author: unknown <jmenard@BB316A-19.adit.mines.edu>
+Date:   Thu Mar 31 15:33:55 2016 -0600
+
+    Door directions display properly
+
+commit e41457960aac1985f353a4b754915de9dc1d08fa
+Author: unknown <jmenard@BB316A-19.adit.mines.edu>
+Date:   Thu Mar 31 15:11:22 2016 -0600
+
+    Draw names on rooms.
+
+commit 1db37eb5a1350c3bef5c3b8f1fc277549fc03b83
+Author: unknown <jmenard@BB316A-19.adit.mines.edu>
+Date:   Thu Mar 31 14:22:15 2016 -0600
+
+    Refactored 'Deck' to class, players color correctly
+
+commit abfc953169efcbd882107e65cd970289c0fb86cf
+Author: unknown <jmenard@BB316B-31.adit.mines.edu>
+Date:   Wed Mar 30 18:56:51 2016 -0600
+
+    Started work on displaying players.
+
+commit 6d431641f1e69ac036ce9d435b892a848e5ec4d8
+Author: unknown <jmenard@BB316B-31.adit.mines.edu>
+Date:   Wed Mar 30 18:12:38 2016 -0600
+
+    Display gameboard with appropiate color
+
+commit c1e900375ddf6dc8cba44f6ebcfd4450812e8cca
+Author: unknown <jmenard@BB316B-31.adit.mines.edu>
+Date:   Wed Mar 30 17:32:32 2016 -0600
+
+    Remove DrawPanel, display board
+
+commit e44154bd39764f229404aa797132c3d54857fdee
+Author: unknown <jmenard@BB316B-31.adit.mines.edu>
+Date:   Wed Mar 30 17:31:08 2016 -0600
+
+    Remove DrawPanel, display board
+
+commit 0e68e136f81ac7a53b4de16141c2da97ccbf6e6a
+Author: unknown <jmenard@BB316B-23.adit.mines.edu>
+Date:   Wed Mar 30 16:52:48 2016 -0600
+
+    Added some code to start drawing objects in order, but no code yet to actually draw the objects
+
+commit d842b7fe7adf378486b3bb18729815f1a791b827
+Author: unknown <mbartlet@BB316B-14.adit.mines.edu>
+Date:   Tue Mar 29 16:36:22 2016 -0600
+
+    Expanded GUI
+
+commit 0bfcbf65fd5491b31fb05b18fbcd5aa1b3b14c52
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Sun Mar 27 23:27:59 2016 -0600
+
+    Added a basis for the GUI. Some details need to be fixed, like sizing and adding labels to the text fields.
+
+commit 40aa0677861bd98306e20220158a0f980a1e03ea
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Sun Mar 27 22:29:08 2016 -0600
+
+    Created Control GUI class and added main function
+
+commit cce64d677eeba2025827386ad22cf8db4af510ab
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 19:09:51 2016 -0600
+
+    Finished tests for disproving suggestions
+
+commit 67ca2342a13c5ec5d665950720a1007e06a0ab58
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 18:27:16 2016 -0600
+
+    Passed tests for disproving a suggestion
+
+commit a467644bd23638abb890e98733f970a33b507198
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 17:00:53 2016 -0600
+
+    Pass random choice test
+
+commit 5e592bcbd8bd11f0a2d66a9704a9c6d243f8ea42
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 16:50:55 2016 -0600
+
+    Pass room preference test
+
+commit 72a8fa4cc12e76801a938fe9e2d74f030fbf2c99
+Merge: 16acf0a ecc5845
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 15:25:28 2016 -0600
+
+    Merge branch 'master' of https://github.com/JedMenard/Clue
+
+commit 16acf0a4ed99a565dd00c8de3d503f619390de76
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 24 15:25:11 2016 -0600
+
+    Corrected a misspelling of the word 'the'
+
+commit ecc584568e7af0e93975f36379ceb7491d909ae8
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Tue Mar 22 23:56:52 2016 -0600
+
+    Added tests for loading players
+
+commit 24be75233b9ba7a08b1c1b408bb601769993fc0b
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Tue Mar 22 23:04:17 2016 -0600
+
+    Fixed an infinite loop error with random numbers.
+
+commit aa2d8f61b9366f593b36215b65c411eb08f3eb82
+Author: bartlettmic <bartlettmic@gmail.com>
+Date:   Tue Mar 22 22:11:16 2016 -0600
+
+    Instantiate theAnswer
+
+commit d2bdd549bab82960d880b0895277fa8d0ee68ce5
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Tue Mar 22 17:42:40 2016 -0600
+
+    Added code to make the check accusation tests pass
+
+commit bea28138e447b907946564edea2c90c0d79c271a
+Author: rkomarov <xrzkx@ymail.com>
+Date:   Sun Mar 20 16:06:01 2016 -0600
+
+    Create selecting a target location tests
+
+commit 1fae8d0cdbd372e17161b960299f045dedd559de
+Author: rkomarov <xrzkx@ymail.com>
+Date:   Sun Mar 20 15:29:27 2016 -0600
+
+    Create Loading Player tests
+
+commit f0b410a9f754e3138bbbe1c32df7f6c489f2e304
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Sat Mar 19 17:35:46 2016 -0600
+
+    Added code to test disproving suggestions
+
+commit 1154864707dc8eaae11dacd73ea0c4cddd2ff75d
+Author: Jed Menard <jmenard@mymail.mines.edu>
+Date:   Sat Mar 19 16:38:08 2016 -0600
+
+    Added tests to check accusations and make suggestions
+
+commit 731b26427ca5725a03dea2d1804fd80f8a0abed8
+Author: bartlettmic <bartlettmic@gmail.com>
+Date:   Sat Mar 19 02:04:41 2016 -0600
+
+    Second half of card testing
+    All cards are dealt
+    All players have same amount of cards +/- 1
+    No players have duplicates of a card
+    All previous tests still pass
+
+commit 3d5be3d6b738145706ec4ab50dc253861a69a333
+Author: bartlettmic <bartlettmic@gmail.com>
+Date:   Sat Mar 19 00:41:48 2016 -0600
+
+    Impliment first half of card deck tests (loading)
+    Correct size (21)
+    Correct distribution (9 rooms, 6 people, 6 weapons)
+    Contains specific cards
+    All previous tests still pass
+    Functions with Rader's layout and legend
+
+commit e640fd0aa7e1c0d728242e4b31f0e059657201e7
+Author: unknown <mbartlet@BB316B-14.adit.mines.edu>
+Date:   Thu Mar 10 16:35:29 2016 -0700
+
+    Add UML functions & variables
+
+commit 9940bca41d78975f8c76726003a93b47f8848572
+Author: unknown <jmenard@BB316B-15.adit.mines.edu>
+Date:   Thu Mar 10 16:13:42 2016 -0700
+
+    Initial commit after code swap

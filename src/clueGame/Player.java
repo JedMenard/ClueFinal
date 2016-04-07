@@ -61,6 +61,15 @@ public class Player extends JPanel {
 		}		
 	}
 
+	public Player(String playerName2, Color color2, int row2, int column2) {
+		playerName = playerName2;
+		color = color2;
+		row = row2;
+		column = column2;
+		myCards = new HashSet<Card>();
+		seenCards = new HashSet<Card>();
+	}
+
 	public void AddCard(Card c) {
 		myCards.add(c);
 	}
@@ -76,9 +85,11 @@ public class Player extends JPanel {
 			FileReader fr;
 			fr = new FileReader(string);
 			Scanner line = new Scanner(fr);		
-
+			boolean madePlayer = false;
+			
 			while(line.hasNext()){
 				Scanner in = new Scanner(line.nextLine());
+				Player temp;
 				
 				in.useDelimiter(",");
 								
@@ -86,8 +97,14 @@ public class Player extends JPanel {
 				String color = in.next();
 				String row = in.next();
 				String col = in.next();
-
-				Player temp = new Player(name, color, row, col);
+				
+				if(!madePlayer){
+					temp = new HumanPlayer(name, color, row, col);
+					madePlayer = true;
+				}
+				else{
+					temp = new ComputerPlayer(name, color, row, col);
+				}
 				players.add(temp);
 				
 				in.close();
