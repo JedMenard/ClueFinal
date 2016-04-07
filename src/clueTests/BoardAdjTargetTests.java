@@ -256,41 +256,6 @@ public class BoardAdjTargetTests {
 		assertTrue(targets.contains(board.getCellAt(5, 18)));
 		assertTrue(targets.contains(board.getCellAt(6, 17)));
 	}
-	
-	// Test getting into room, doesn't require all steps
-	// These are LIGHT BLUE on the planning spreadsheet
-	//////////////////////////////////////////////////////////////////////
-	// Found no different scenario test compared to TestTargetsSixSteps //
-	//////////////////////////////////////////////////////////////////////
-	/*
-	@Test
-	public void testTargetsIntoRoomShortcut() 
-	{
-		board.calcTargets(12, 7, 3);
-		Set<BoardCell> targets= board.getTargets();
-		assertEquals(12, targets.size());
-		// directly up and down
-		assertTrue(targets.contains(board.getCellAt(15, 7)));
-		assertTrue(targets.contains(board.getCellAt(9, 7)));
-		// directly right (can't go left)
-		assertTrue(targets.contains(board.getCellAt(12, 10)));
-		// right then down
-		assertTrue(targets.contains(board.getCellAt(13, 9)));
-		assertTrue(targets.contains(board.getCellAt(13, 7)));
-		// down then left/right
-		assertTrue(targets.contains(board.getCellAt(14, 6)));
-		assertTrue(targets.contains(board.getCellAt(14, 8)));
-		// right then up
-		assertTrue(targets.contains(board.getCellAt(10, 8)));
-		// into the rooms
-		assertTrue(targets.contains(board.getCellAt(11, 6)));
-		assertTrue(targets.contains(board.getCellAt(10, 6)));		
-		// 
-		assertTrue(targets.contains(board.getCellAt(11, 7)));		
-		assertTrue(targets.contains(board.getCellAt(12, 8)));		
-		
-	}
-	*/
 
 	// Test getting out of a room
 	// These are LIGHT BLUE on the planning spreadsheet
