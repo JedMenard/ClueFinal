@@ -77,5 +77,7 @@ public class ClueGame extends JFrame {
 		
 		JOptionPane splash = new JOptionPane();
 		splash.showMessageDialog(ourGame, "You are Professor Plum, press Next Player to begin play.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		
+		
 	}
 }
