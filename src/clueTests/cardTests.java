@@ -44,9 +44,9 @@ public class CardTests {
 			if (c.getType() == CardType.PERSON) people++;
 			if (c.getType() == CardType.WEAPON) weapons++;
 		}
-		assertEquals(rooms,9);
-		assertEquals(people,6);
-		assertEquals(weapons,6);
+		assertEquals(9,rooms);
+		assertEquals(6,people);
+		assertEquals(6,weapons);
 	}
 
 	@Test
@@ -61,7 +61,7 @@ public class CardTests {
 			if (c.equals(card2)) truths++;
 			if (c.equals(card3)) truths++;
 		}
-		assertEquals(truths,3);				
+		assertEquals(3,truths);				
 	}
 
 	////////////PART 2, DEALING THE CARDS////////////////////////////////
@@ -75,7 +75,7 @@ public class CardTests {
 				if (board.deck.contains(c)) truths++;
 			}
 		}
-		assertEquals(board.deck.allCards.size()-3,truths);
+		assertEquals(truths,board.deck.allCards.size()-3);
 	}
 
 	@Test
@@ -85,7 +85,7 @@ public class CardTests {
 		for (int i = 1; i < board.players.size(); i++) {
 			if (Math.abs(board.players.get(0).GetMyCards().size() - board.players.get(i).GetMyCards().size()) <= 1) truths++;
 		}		
-		assertEquals(truths, 5);
+		assertEquals(5,truths);
 	}
 	
 	@Test
@@ -101,6 +101,6 @@ public class CardTests {
 				}
 			}
 		}
-		assertEquals(duplicates, 0);
+		assertEquals(0,duplicates);
 	}
 }
