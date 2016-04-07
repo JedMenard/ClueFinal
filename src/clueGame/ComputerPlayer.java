@@ -49,17 +49,17 @@ public class ComputerPlayer extends Player {
 	
 	public Solution makeSuggestion(Board board, BoardCell location) {
 		Random r = new Random();
-		ArrayList<Card> weaps = new ArrayList<Card>();
-		ArrayList<Card> peeps = new ArrayList<Card>();
+		ArrayList<Card> weapons = new ArrayList<Card>();
+		ArrayList<Card> people = new ArrayList<Card>();
 		for (Card c: board.deck.deck) {
 			if (!seenCard(c)){
-				if (c.getType() == CardType.WEAPON) weaps.add(c);
-				else if (c.getType() == CardType.PERSON) peeps.add(c);
+				if (c.getType() == CardType.WEAPON) weapons.add(c);
+				else if (c.getType() == CardType.PERSON) people.add(c);
 			}
 		}
 		
-		String person = peeps.get(r.nextInt(peeps.size())).getName();
-		String weapon = weaps.get(r.nextInt(weaps.size())).getName();
+		String person = people.get(r.nextInt(people.size())).getName();
+		String weapon = weapons.get(r.nextInt(weapons.size())).getName();
 		String room = location.getName();
 		
 		return new Solution(person, room, weapon);
