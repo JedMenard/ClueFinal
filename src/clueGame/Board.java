@@ -57,19 +57,20 @@ public class Board extends JPanel {
 
 	// Initializes the board
 	public void initialize(){
+		// Initializing variables
 		players = Player.loadPlayersFromFile("Players.txt");
 		rooms = new HashMap<Character, String>();
 		weaponCards = new ArrayList<Card>();
 		adjMtx = new HashMap<BoardCell,LinkedList<BoardCell>>();
 
-
+		// Surrounding load config function in try/catch statement
 		try {
 			loadRoomConfig();
 			loadBoardConfig();
-		}
+		}	// If the file is not found
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
+		}	// If the file is found, but formatted wrong
 		catch (BadConfigFormatException r) {
 			try {
 				FileWriter fout = new FileWriter("BadConfigLog.txt");
@@ -79,8 +80,8 @@ public class Board extends JPanel {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		}
+		// Has each cell calculate it's adjacencies
 		for(int r = 0 ; r < numRows; r++){
 			for (int c = 0; c < numCols; c++){
 				calcAdjacencies(board[r][c]);
@@ -88,11 +89,12 @@ public class Board extends JPanel {
 		}
 
 		//This is where the board tries to create the deck
-		try { loadCards(); }
+		try { loadCards(); } // If the file is not found
 		catch (FileNotFoundException e) {
 			System.out.println("Can't find card file");
 		}
 
+		// Calls functions to create the players and assign names to the rooms of the cells
 		createPlayers();
 		nameCells();		
 	}
