@@ -65,20 +65,10 @@ public class Player extends JPanel {
 		myCards.add(c);
 	}
 
-	//for test
-	public Set<Card> GetMyCards() {
-		return myCards;
-	}
-
 	public void SeeCard(Card c){
 		seenCards.add(c);
 	}
-
-	public void setLocation(int r, int c){
-		setRow(r);
-		setColumn(c);
-	}
-
+	
 	public static ArrayList<Player> loadPlayersFromFile(String string) {
 		ArrayList<Player> players = new ArrayList<Player>();
 
@@ -108,7 +98,27 @@ public class Player extends JPanel {
 		}
 		return players;
 	}
-
+	
+	public void draw(Graphics g){
+		if (color == null) {
+			Random ran = new Random();
+			color = new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255));
+		}
+		g.setColor(color);
+		g.fillOval((int)(column*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
+		g.setColor(Color.WHITE);
+		g.drawOval((int)(column*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());		
+	}	
+	
+	public Set<Card> GetMyCards() {
+		return myCards;
+	}
+	
+	public void setLocation(int r, int c){
+		setRow(r);
+		setColumn(c);
+	}
+	
 	public String getPlayerName() {
 		return playerName;
 	}
@@ -137,29 +147,5 @@ public class Player extends JPanel {
 		return color;
 	}
 
-	public BoardCell getLastCell() {
-		return lastCell;
-	}
 
-	public void setLastCell(BoardCell lastCell) {
-		this.lastCell = lastCell;
-	}
-	
-	public void draw(Graphics g){
-		if (color == null) {
-			Random ran = new Random();
-			color = new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255));
-		}
-		g.setColor(color);
-		g.fillOval((int)(column*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
-		g.setColor(Color.WHITE);
-		g.drawOval((int)(column*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());		
-	}
-
-//	public Color mapColor() {
-//			Random ran = new Random();
-//			if (!colorMap.containsKey(playerName)) colorMap.put(playerName, new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255)));
-//			return colorMap.get(playerName);					
-//	}
-	
 }

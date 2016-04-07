@@ -87,8 +87,6 @@ public class Board extends JPanel {
 			}
 		}
 
-		// 3/18////////////////////////////////////////////////////
-
 		//This is where the board tries to create the deck
 		try { loadCards(); }
 		catch (FileNotFoundException e) {
