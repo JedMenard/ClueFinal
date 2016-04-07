@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -29,41 +28,20 @@ public class Board extends JPanel {
 	private int numCols;
 	private String leg;
 	private String lay;
+	
+	public Deck deck;	
+	private Solution theAnswer;
 
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
+	
+	public static ArrayList<Player> players;
 	protected static Map<Character, String> roomNames = new HashMap<Character, String>(); 
 	protected static ArrayList<Card> weaponCards;
 
-	// 3/18
-	//public ArrayList<Card> deck;
-	public Deck deck;
-	public static ArrayList<Player> players;	
 
-	// 3/10
-	private Solution theAnswer;
-
-	// Handles when a suggestion is made 
-	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
-		int i;
-		Card result = null;
-		for (i=0; i<players.size(); i++) {
-			if (players.get(i).equals(accusingPlayer)) break;
-		}
-		for (int j = 1; j<players.size(); j++) {
-			result = players.get((i+j)%players.size()).disproveSuggestion(suggestion);
-			if (result != null) break;
-		}
-		return result;
-	}
-
-	// Checks an accusation against the correct answer
-	public boolean checkAccustaion(Solution accusation){
-		if (accusation == theAnswer) return true;
-		else return false;
-	}
-
+	
 	// Default Constructor
 	public Board() {
 		leg = "Legend.txt";
@@ -75,6 +53,7 @@ public class Board extends JPanel {
 		lay = string;
 		leg = string2;		
 	}
+
 
 	// Initializes the board
 	public void initialize(){
@@ -190,7 +169,6 @@ public class Board extends JPanel {
 
 	}
 
-
 	// Loads the room legends into a map from a config file
 	public void loadRoomConfig() throws BadConfigFormatException, FileNotFoundException {
 		rooms = new HashMap<Character, String>();
@@ -262,6 +240,15 @@ public class Board extends JPanel {
 		in.close();
 	}
 
+	// Gives all board cells an appropriate name for whatever kind of tile it is
+	private void nameCells(){
+		for (int row = 0; row < numRows; row++){
+			for (int col = 0; col < numCols; col++){
+				board[row][col].name = roomNames.get(board[row][col].getInitial());
+			}
+		}
+	}
+	
 
 	// Calculates the possible targets for a person at a given distance
 	// Calls a recursive helper function
@@ -343,16 +330,27 @@ public class Board extends JPanel {
 		}
 		adjMtx.put(b, l);
 	}
-
-	// Gives all board cells an appropriate name for whatever kind of tile it is
-	private void nameCells(){
-		for (int row = 0; row < numRows; row++){
-			for (int col = 0; col < numCols; col++){
-				board[row][col].name = roomNames.get(board[row][col].getInitial());
-			}
+	
+	// Handles when a suggestion is made 
+	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
+		int i;
+		Card result = null;
+		for (i=0; i<players.size(); i++) {
+			if (players.get(i).equals(accusingPlayer)) break;
 		}
+		for (int j = 1; j<players.size(); j++) {
+			result = players.get((i+j)%players.size()).disproveSuggestion(suggestion);
+			if (result != null) break;
+		}
+		return result;
 	}
-
+	
+	// Checks an accusation against the correct answer
+	public boolean checkAccustaion(Solution accusation){
+		if (accusation == theAnswer) return true;
+		else return false;
+	}
+	
 	// Function to draw the board to the GUI
 	@Override
 	public void paintComponent(Graphics g){
