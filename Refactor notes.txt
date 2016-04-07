@@ -1,0 +1,590 @@
+Computer Player:
+
+Before:
+...
+
+//	public BoardCell getLastCell() {
+//		return lastCell;
+//	}
+
+//	public void setLastCell(BoardCell lastCell) {
+//		this.lastCell = lastCell;
+//	}
+	
+	public void draw(Graphics g){
+		if (color == null) {
+			Random ran = new Random();
+			color = new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255));
+		}
+		g.setColor(color);
+		g.fillOval((int)(column*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
+		g.setColor(Color.WHITE);
+		g.drawOval((int)(column*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());		
+	}
+
+//	public Color mapColor() {
+//			Random ran = new Random();
+//			if (!colorMap.containsKey(playerName)) colorMap.put(playerName, new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255)));
+//			return colorMap.get(playerName);					
+//	}
+
+...
+
+After:
+
+...
+
+	public void draw(Graphics g){
+		if (color == null) {
+			Random ran = new Random();
+			color = new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255));
+		}
+		g.setColor(color);
+		g.fillOval((int)(column*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
+		g.setColor(Color.WHITE);
+		g.drawOval((int)(column*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());		
+	}	
+
+...
+
+
+Board.Java (Organized so similar functions were near each other, getters/setters at end)
+
+Before:
+
+private static final long serialVersionUID = 1L;
+	public final int BOARD_SIZE = 50;
+	public final int PLAYER_AMOUNT = 6;
+	private static HashMap<Character, String> rooms;
+	private BoardCell[][] board;
+	private BoardCell[][] tempBoard;
+	private int numRows;
+	private int numCols;
+	private String leg;
+	private String lay;
+
+	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
+	private Set<BoardCell> visited;
+	private Set<BoardCell> targets;
+	protected static Map<Character, String> roomNames = new HashMap<Character, String>(); 
+	protected static ArrayList<Card> weaponCards;
+
+	// 3/18
+	//public ArrayList<Card> deck;
+	public Deck deck;
+	public static ArrayList<Player> players;	
+
+	// 3/10
+	private Solution theAnswer;
+
+	// Handles when a suggestion is made 
+	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
+		...
+	}
+
+	// Checks an accusation against the correct answer
+	public boolean checkAccustaion(Solution accusation){
+		...
+	}
+
+	// Default Constructor
+	public Board() {
+		...	
+	}
+
+	// Constructor
+	public Board(String string, String string2) {
+		...
+	}
+
+	// Initializes the board
+	public void initialize(){
+		...
+	}
+
+	// Loads the players and deals the cards
+	private void createPlayers() {
+		...	
+	}
+
+	//This is the function which tries to load the deck of cards from cards.txt and legend.txt
+	public void loadCards() throws FileNotFoundException {
+		...
+
+	}
+
+
+	// Loads the room legends into a map from a config file
+	public void loadRoomConfig() throws BadConfigFormatException, FileNotFoundException {
+		...
+	}
+
+	// Loads the board from a config file
+	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException{
+		...
+	}
+
+
+	// Calculates the possible targets for a person at a given distance
+	// Calls a recursive helper function
+	// Call this function first
+	public void calcTargets(int row, int col, int steps) {
+		...
+	}
+
+	// Recursively generates targets
+	// HELPER FUNCTION, DO NOT DIRECTLY CALL THIS FUNCTION
+	private void getAllTargets(BoardCell thisCell, int k, Set<BoardCell> visited) {
+
+		...
+
+	}
+
+	// Calculates all the adjacent, non-room cells
+	public void calcAdjacencies(BoardCell b){
+
+		...
+	}
+
+	// Gives all board cells an appropriate name for whatever kind of tile it is
+	private void nameCells(){
+		...
+	}
+
+	// Function to draw the board to the GUI
+	@Override
+	public void paintComponent(Graphics g){
+		...
+	}
+	
+	// Below functions are used solely for testing
+	public Solution getTheAnswer() {
+		return theAnswer;
+	}
+	public void setTheAnswer(Solution theAnswer) {
+		this.theAnswer = theAnswer;
+	}
+	public static Map<Character, String> getRooms() {
+		return rooms;
+	}
+	public int getNumRows() {
+		return numRows;
+	}
+	public int getNumColumns() {
+		return numCols;
+	}
+	public BoardCell getCellAt(int i, int j) {
+		return board[i][j];
+	}
+	public void resetPlayers(){
+		players = new ArrayList<Player>();
+	}
+	public LinkedList<BoardCell> getAdjList(int i, int j) {
+		return adjMtx.get(board[i][j]);
+	}
+	public Set<BoardCell> getTargets() {
+		return targets;
+	}
+
+After:
+	private static final long serialVersionUID = 1L;
+	public final int BOARD_SIZE = 50;
+	public final int PLAYER_AMOUNT = 6;
+	private static HashMap<Character, String> rooms;
+	private BoardCell[][] board;
+	private BoardCell[][] tempBoard;
+	private int numRows;
+	private int numCols;
+	private String leg;
+	private String lay;
+	
+	public Deck deck;	
+	private Solution theAnswer;
+
+	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
+	private Set<BoardCell> visited;
+	private Set<BoardCell> targets;
+	
+	public static ArrayList<Player> players;
+	protected static Map<Character, String> roomNames = new HashMap<Character, String>(); 
+	protected static ArrayList<Card> weaponCards;
+
+
+	
+	// Default Constructor
+	public Board() {
+		...
+	}
+
+	// Constructor
+	public Board(String string, String string2) {
+	...	
+	}
+
+
+	// Initializes the board
+	public void initialize(){
+		...	
+	}
+
+	// Loads the players and deals the cards
+	private void createPlayers() {
+		...		
+	}
+
+	//This is the function which tries to load the deck of cards from cards.txt and legend.txt
+	public void loadCards() throws FileNotFoundException {
+		...
+
+	}
+
+	// Loads the room legends into a map from a config file
+	public void loadRoomConfig() throws BadConfigFormatException, FileNotFoundException {
+		...
+	}
+
+	// Loads the board from a config file
+	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException{
+		...
+	}
+
+	// Gives all board cells an appropriate name for whatever kind of tile it is
+	private void nameCells(){
+		...
+	}
+	
+
+	// Calculates the possible targets for a person at a given distance
+	// Calls a recursive helper function
+	// Call this function first
+	public void calcTargets(int row, int col, int steps) {
+		...
+	}
+
+	// Recursively generates targets
+	// HELPER FUNCTION, DO NOT DIRECTLY CALL THIS FUNCTION
+	private void getAllTargets(BoardCell thisCell, int k, Set<BoardCell> visited) {
+		...
+
+	}
+
+	// Calculates all the adjacent, non-room cells
+	public void calcAdjacencies(BoardCell b){
+
+		...
+	}
+	
+	// Handles when a suggestion is made 
+	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
+		...
+	}
+	
+	// Checks an accusation against the correct answer
+	public b...
+	}
+	
+	// Function to draw the board to the GUI
+	@Override
+	public void paintComponent(Graphics g){
+		...
+	}
+	
+	// Below functions are used solely for testing
+	public Solution getTheAnswer() {
+		return theAnswer;
+	}
+	public void setTheAnswer(Solution theAnswer) {
+		this.theAnswer = theAnswer;
+	}
+	public static Map<Character, String> getRooms() {
+		return rooms;
+	}
+	public int getNumRows() {
+		return numRows;
+	}
+	public int getNumColumns() {
+		return numCols;
+	}
+	public BoardCell getCellAt(int i, int j) {
+		return board[i][j];
+	}
+	public void resetPlayers(){
+		players = new ArrayList<Player>();
+	}
+	public LinkedList<BoardCell> getAdjList(int i, int j) {
+		return adjMtx.get(board[i][j]);
+	}
+	public Set<BoardCell> getTargets() {
+	}
+
+
+pickLocation function:
+
+Before:
+
+	public BoardCell pickLocation(Set<BoardCell> targets) {
+		ArrayList<BoardCell> doors = new ArrayList<BoardCell>();
+		ArrayList<BoardCell> notDoors = new ArrayList<BoardCell>();
+		
+		BoardCell chosenCell;
+		
+		Random r = new Random();
+		
+		for(BoardCell t : targets) {
+			if(t == super.lastCell) {
+				continue;
+			} else if(t.isDoorway()) {
+				doors.add(t);
+			} else {
+				notDoors.add(t);
+			}
+		}
+				
+		if(doors.size() > 0) {
+			int ran = r.nextInt(doors.size());
+			chosenCell = doors.get(ran);
+		} else {
+			int ran = r.nextInt(notDoors.size());
+			chosenCell = notDoors.get(ran);
+		}
+		
+		return chosenCell;
+	}
+
+After:
+
+	public BoardCell pickLocation(Set<BoardCell> targets) {
+		ArrayList<BoardCell> doors = new ArrayList<BoardCell>();
+		ArrayList<BoardCell> notDoors = new ArrayList<BoardCell>();
+		
+		BoardCell chosenCell;
+		
+		Random r = new Random();
+		
+		for(BoardCell t : targets) {
+			if(t == super.lastCell) {
+				// Added the below line of code
+				notDoors.add(t);
+			} else if(t.isDoorway()) {
+				doors.add(t);
+			} else {
+				notDoors.add(t);
+			}
+		}
+				
+		if(doors.size() > 0) {
+			int ran = r.nextInt(doors.size());
+			chosenCell = doors.get(ran);
+		} else {
+			int ran = r.nextInt(notDoors.size());
+			chosenCell = notDoors.get(ran);
+		}
+		
+		return chosenCell;
+	}
+
+makeSuggestion function:
+
+Before:
+
+	public Solution makeSuggestion(Board board, BoardCell location) {
+		Random r = new Random();
+		ArrayList<Card> weaps = new ArrayList<Card>();
+		ArrayList<Card> peeps = new ArrayList<Card>();
+		for (Card c: board.deck.deck) {
+			if (!seenCard(c)){
+				if (c.getType() == CardType.WEAPON) weaps.add(c);
+				else if (c.getType() == CardType.PERSON) peeps.add(c);
+			}
+		}
+		
+		String person = peeps.get(r.nextInt(peeps.size())).getName();
+		String weapon = weaps.get(r.nextInt(weaps.size())).getName();
+		String room = location.getName();
+		
+		return new Solution(person, room, weapon);
+	}
+
+After:
+
+	public Solution makeSuggestion(Board board, BoardCell location) {
+		Random r = new Random();
+		ArrayList<Card> weapons = new ArrayList<Card>();
+		ArrayList<Card> people = new ArrayList<Card>();
+		for (Card c: board.deck.deck) {
+			if (!seenCard(c)){
+				if (c.getType() == CardType.WEAPON) weapons.add(c);
+				else if (c.getType() == CardType.PERSON) people.add(c);
+			}
+		}
+		
+		String person = people.get(r.nextInt(people.size())).getName();
+		String weapon = weapons.get(r.nextInt(weapons.size())).getName();
+		String room = location.getName();
+		
+		return new Solution(person, room, weapon);
+	}
+
+Renaming tests:
+
+Before:
+
+public class cardTests
+pulbic class configTests
+
+After:
+
+public class CardTests
+public class ConfigTests
+
+
+Removing unusued tests:
+
+Tests removed from BoardAdjTargetTests:
+
+	// Test getting into room, doesn't require all steps
+	// These are LIGHT BLUE on the planning spreadsheet
+	//////////////////////////////////////////////////////////////////////
+	// Found no different scenario test compared to TestTargetsSixSteps //
+	//////////////////////////////////////////////////////////////////////
+	/*
+	@Test
+	public void testTargetsIntoRoomShortcut() 
+	{
+		board.calcTargets(12, 7, 3);
+		Set<BoardCell> targets= board.getTargets();
+		assertEquals(12, targets.size());
+		// directly up and down
+		assertTrue(targets.contains(board.getCellAt(15, 7)));
+		assertTrue(targets.contains(board.getCellAt(9, 7)));
+		// directly right (can't go left)
+		assertTrue(targets.contains(board.getCellAt(12, 10)));
+		// right then down
+		assertTrue(targets.contains(board.getCellAt(13, 9)));
+		assertTrue(targets.contains(board.getCellAt(13, 7)));
+		// down then left/right
+		assertTrue(targets.contains(board.getCellAt(14, 6)));
+		assertTrue(targets.contains(board.getCellAt(14, 8)));
+		// right then up
+		assertTrue(targets.contains(board.getCellAt(10, 8)));
+		// into the rooms
+		assertTrue(targets.contains(board.getCellAt(11, 6)));
+		assertTrue(targets.contains(board.getCellAt(10, 6)));		
+		// 
+		assertTrue(targets.contains(board.getCellAt(11, 7)));		
+		assertTrue(targets.contains(board.getCellAt(12, 8)));		
+		
+	}
+	*/
+
+assertEquals:
+
+Before:
+
+assertEquals(board.deck.allCards.size(), 21);	
+assertEquals(rooms,9);
+assertEquals(people,6);
+assertEquals(weapons,6);
+assertEquals(truths,3);
+assertEquals(board.deck.allCards.size()-3,truths);
+assertEquals(truths, 5);
+assertEquals(duplicates, 0);
+
+
+After:
+
+assertEquals(21,board.deck.allCards.size());	
+assertEquals(9,rooms);
+assertEquals(6,people);
+assertEquals(6,weapons);
+assertEquals(3,truths);
+assertEquals(truths,board.deck.allCards.size()-3);
+assertEquals(5,truths);
+assertEquals(0,duplicates);
+
+
+Adding comments to initialize():
+
+Before:
+
+players = Player.loadPlayersFromFile("Players.txt");
+		rooms = new HashMap<Character, String>();
+		weaponCards = new ArrayList<Card>();
+		adjMtx = new HashMap<BoardCell,LinkedList<BoardCell>>();
+
+
+		try {
+			loadRoomConfig();
+			loadBoardConfig();
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (BadConfigFormatException r) {
+			try {
+				FileWriter fout = new FileWriter("BadConfigLog.txt");
+				fout.write("Error in Configuration File.");
+				fout.flush();
+				fout.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+		for(int r = 0 ; r < numRows; r++){
+			for (int c = 0; c < numCols; c++){
+				calcAdjacencies(board[r][c]);
+			}
+		}
+
+		//This is where the board tries to create the deck
+		try { loadCards(); }
+		catch (FileNotFoundException e) {
+			System.out.println("Can't find card file");
+		}
+
+		createPlayers();
+		nameCells();		
+
+After:
+
+		// Initializing variables
+		players = Player.loadPlayersFromFile("Players.txt");
+		rooms = new HashMap<Character, String>();
+		weaponCards = new ArrayList<Card>();
+		adjMtx = new HashMap<BoardCell,LinkedList<BoardCell>>();
+
+		// Surrounding load config function in try/catch statement
+		try {
+			loadRoomConfig();
+			loadBoardConfig();
+		}	// If the file is not found
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}	// If the file is found, but formatted wrong
+		catch (BadConfigFormatException r) {
+			try {
+				FileWriter fout = new FileWriter("BadConfigLog.txt");
+				fout.write("Error in Configuration File.");
+				fout.flush();
+				fout.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		// Has each cell calculate it's adjacencies
+		for(int r = 0 ; r < numRows; r++){
+			for (int c = 0; c < numCols; c++){
+				calcAdjacencies(board[r][c]);
+			}
+		}
+
+		//This is where the board tries to create the deck
+		try { loadCards(); } // If the file is not found
+		catch (FileNotFoundException e) {
+			System.out.println("Can't find card file");
+		}
+
+		// Calls functions to create the players and assign names to the rooms of the cells
+		createPlayers();
+		nameCells();
