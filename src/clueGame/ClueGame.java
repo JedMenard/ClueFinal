@@ -73,11 +73,14 @@ public class ClueGame extends JFrame {
 		
 		ControlGUI gui = new ControlGUI();
 		ourGame.add(gui, BorderLayout.SOUTH);
-		ourGame.setVisible(true);		
+				
 		
 		JOptionPane splash = new JOptionPane();
 		splash.showMessageDialog(ourGame, "You are Professor Plum, press Next Player to begin play.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
+		HumanCards myCards = new HumanCards();
+		ourGame.add(myCards, BorderLayout.EAST);
 		
+		ourGame.setVisible(true);
 	}
 }
