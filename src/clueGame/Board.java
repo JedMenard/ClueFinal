@@ -107,8 +107,6 @@ public class Board extends JPanel {
 		for (int i = 0; !deck.empty(); i++)  {
 			players.get(i%PLAYER_AMOUNT).AddCard(deck.draw());
 		}
-		
-		
 	}
 
 	//This is the function which tries to load the deck of cards from cards.txt and legend.txt
@@ -367,6 +365,8 @@ public class Board extends JPanel {
 			p.draw(g);
 		}
 	}
+	
+	
 	
 	// Below functions are used solely for testing
 	public Solution getTheAnswer() {

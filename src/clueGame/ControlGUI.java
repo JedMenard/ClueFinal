@@ -2,9 +2,13 @@ package clueGame;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -13,7 +17,7 @@ import javax.swing.border.TitledBorder;
 public class ControlGUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField name;
-
+	private boolean humanTurnOver = false;
 	
 	public ControlGUI(){
 		JPanel panel = createTurnControlPanel();
@@ -39,6 +43,7 @@ public class ControlGUI extends JPanel {
 		whoseTurn.setEditable(false);
 		JButton nextPlayer = new JButton("Next player");
 		nextPlayer.setPreferredSize(new Dimension(100, 50));
+		nextPlayer.addActionListener(new ButtonListener());
 		JButton makeAccusation = new JButton("Make an accusation");
 		
 		panel.add(label);
@@ -88,4 +93,27 @@ public class ControlGUI extends JPanel {
 		return panel;
 	}
 
+	public class ButtonListener implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			switch (e.getActionCommand()) {
+			case "Next player":
+				if (!humanTurnOver){
+					JOptionPane.showMessageDialog(new JFrame(), "Your turn is not over", "Error", JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+				break;
+
+			case "Make an accusation":
+				
+				break;
+				
+			default:
+				break;
+			}			
+		}
+		
+	}
 }
