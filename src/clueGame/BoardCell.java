@@ -23,17 +23,20 @@ import com.sun.prism.BasicStroke;
 import java.awt.Color;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 
 public class BoardCell extends JPanel {
 
 	private int row, col;
-	private static Dimension size = new Dimension(35,35);
+	private static final Dimension size = new Dimension(35,35);
 	private static HashMap<Character,Color> colorMap = new HashMap<Character,Color>();	
 	private char initial;
 	public boolean isName = false;
 	public String name;
 	private boolean isDoor;
+	private boolean highlighted = false;
 	private DoorDirection dir;
 
 	public BoardCell(int row, int col) {
@@ -136,7 +139,6 @@ public class BoardCell extends JPanel {
 		if (initial == 'W') {
 			g.setColor(Color.WHITE);
 			g.drawRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
-			
 		}
 		
 		if (isDoor) {
@@ -183,5 +185,20 @@ public class BoardCell extends JPanel {
 			return colorMap.get(initial);
 			//return new Color(ran.nextInt(255),ran.nextInt(255),ran.nextInt(255));
 		}
+	}
+
+	public boolean isHighlighted() {
+		return highlighted;
+	}
+
+	public void setHighlighted(boolean highlighted) {
+		this.highlighted = highlighted;
+	}
+	
+	public boolean containsClicked(int x, int y){
+		Rectangle rect = new Rectangle(x, y, (int)size.getWidth(), (int)size.getHeight());
+		if(rect.contains(new Point(x, y)))		
+			return true;
+		return false;
 	}
 }

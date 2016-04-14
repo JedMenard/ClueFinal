@@ -12,11 +12,15 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
 	public final int BOARD_SIZE = 50;
@@ -29,6 +33,7 @@ public class Board extends JPanel {
 	private String leg;
 	private String lay;
 	public HumanPlayer p1;
+	protected boolean humanTurnOver = false;
 	
 	public Deck deck;	
 	private Solution theAnswer;
@@ -36,13 +41,13 @@ public class Board extends JPanel {
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
-	
+
 	public static ArrayList<Player> players;
 	protected static Map<Character, String> roomNames = new HashMap<Character, String>(); 
 	protected static ArrayList<Card> weaponCards;
 
 
-	
+
 	// Default Constructor
 	public Board() {
 		leg = "Legend.txt";
@@ -58,6 +63,9 @@ public class Board extends JPanel {
 
 	// Initializes the board
 	public void initialize(){
+		// Adds a mouse listener
+		addMouseListener(this);
+		
 		// Initializing variables
 		players = Player.loadPlayersFromFile("Players.txt");
 		rooms = new HashMap<Character, String>();
@@ -249,7 +257,7 @@ public class Board extends JPanel {
 			}
 		}
 	}
-	
+
 
 	// Calculates the possible targets for a person at a given distance
 	// Calls a recursive helper function
@@ -331,7 +339,7 @@ public class Board extends JPanel {
 		}
 		adjMtx.put(b, l);
 	}
-	
+
 	// Handles when a suggestion is made 
 	public Card handleSuggestion(Solution suggestion, Player accusingPlayer, BoardCell clicked) {
 		int i;
@@ -345,13 +353,13 @@ public class Board extends JPanel {
 		}
 		return result;
 	}
-	
+
 	// Checks an accusation against the correct answer
 	public boolean checkAccustaion(Solution accusation){
 		if (accusation == theAnswer) return true;
 		else return false;
 	}
-	
+
 	// Function to draw the board to the GUI
 	@Override
 	public void paintComponent(Graphics g){
@@ -365,14 +373,16 @@ public class Board extends JPanel {
 			p.draw(g);
 		}
 	}
-	
-	public void highlightTargets(Set<BoardCell> tar){
-		for (BoardCell c : tar){
-			c.highlight(g, c);
+
+	public void highlightTargets(){
+		if (targets != null){
+			for (BoardCell c : targets){
+				c.setHighlighted(true);
+			}
 		}
-		
+		repaint();
 	}
-	
+
 	// Below functions are used solely for testing
 	public Solution getTheAnswer() {
 		return theAnswer;
@@ -401,5 +411,36 @@ public class Board extends JPanel {
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		BoardCell cell = null;
+		if(targets != null){
+			for (BoardCell c : targets){
+				if(c.containsClicked(e.getX(), e.getY())){ 
+					cell = c;
+					break;
+				}
+			}
+		}
+
+		if (cell != null){
+			players.get(0).moveTo(cell);
+			humanTurnOver = true;
+		}
+		else{
+			JOptionPane.showMessageDialog(new JFrame(), "That is not a valid cell", "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+
+	// Unused functions:
+	@Override
+	public void mouseEntered(MouseEvent arg0) {}
+	@Override
+	public void mouseExited(MouseEvent arg0) {}
+	@Override
+	public void mousePressed(MouseEvent arg0) {}
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
 
 }

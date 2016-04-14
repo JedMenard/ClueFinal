@@ -18,7 +18,14 @@ public class HumanPlayer extends Player {
 		super(name, color, row, col);
 	}
 	
-	public void MakeMove(Board board, int steps){
+	public void makeMove(Board board, int steps){
+		board.calcTargets(row, column, steps);
+		board.highlightTargets();
 		
+		
+		
+		//TODO: make suggestion
 	}
+	
+	
 }

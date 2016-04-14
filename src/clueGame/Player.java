@@ -165,5 +165,10 @@ public class Player extends JPanel {
 		return color;
 	}
 
-
+	public void moveTo(BoardCell cell){
+		row = cell.getRow();
+		column = cell.getCol();
+	}
+	
+	//public void makeMove() {}
 }

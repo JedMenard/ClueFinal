@@ -10,7 +10,7 @@ import javax.swing.*;
 
 import com.sun.glass.events.MouseEvent;
 
-public class ClueGame extends JFrame implements MouseListener {
+public class ClueGame extends JFrame {
 	public static Board board;
 	private int currentPlayer = 0;
 
@@ -68,27 +68,33 @@ public class ClueGame extends JFrame implements MouseListener {
 		return item;
 	}
 
-	private void handleRounds(){
-
+	public void handleRounds(){
+		if (!board.humanTurnOver){
+			JOptionPane.showMessageDialog(new JFrame(), "Your turn is not over", "Error", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		else {
+			
+		}
 	}
+	
 
-
-	// Unused Functions
-	@Override
-	public void mouseReleased(java.awt.event.MouseEvent arg0) {}
-	@Override
-	public void mouseEntered(java.awt.event.MouseEvent arg0) {}
-	@Override
-	public void mouseExited(java.awt.event.MouseEvent arg0) {}
-	@Override
-	public void mousePressed(java.awt.event.MouseEvent arg0) {}
-
-
-	@Override
-	public void mouseClicked(java.awt.event.MouseEvent arg0) {
-		
-
-	}
+//	// Unused Functions
+//	@Override
+//	public void mouseReleased(java.awt.event.MouseEvent arg0) {}
+//	@Override
+//	public void mouseEntered(java.awt.event.MouseEvent arg0) {}
+//	@Override
+//	public void mouseExited(java.awt.event.MouseEvent arg0) {}
+//	@Override
+//	public void mousePressed(java.awt.event.MouseEvent arg0) {}
+//
+//
+//	@Override
+//	public void mouseClicked(java.awt.event.MouseEvent arg0) {
+//		
+//
+//	}
 
 
 
@@ -100,7 +106,7 @@ public class ClueGame extends JFrame implements MouseListener {
 
 		ourGame.setSize((board.getNumRows()*40>1000) ? board.getNumRows()*40 : 1000, board.getNumColumns()*40);
 
-		ControlGUI gui = new ControlGUI();
+		ControlGUI gui = new ControlGUI(ourGame);
 		ourGame.add(gui, BorderLayout.SOUTH);
 
 
