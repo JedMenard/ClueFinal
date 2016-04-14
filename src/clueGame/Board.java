@@ -366,7 +366,12 @@ public class Board extends JPanel {
 		}
 	}
 	
-	
+	public void highlightTargets(Set<BoardCell> tar){
+		for (BoardCell c : tar){
+			c.highlight(g, c);
+		}
+		
+	}
 	
 	// Below functions are used solely for testing
 	public Solution getTheAnswer() {

@@ -17,7 +17,8 @@ import javax.swing.JPanel;
 
 public class Player extends JPanel {
 	private String playerName;
-	private int row, column;	
+	protected int row;
+	protected int column;	
 	private Color color;
 	private Set<Card> myCards;
 	protected Set<Card> seenCards;

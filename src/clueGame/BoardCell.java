@@ -124,6 +124,11 @@ public class BoardCell extends JPanel {
 		}
 		return "!";
 	}
+	
+	public void highlight(Graphics g, Color c){
+		g.setColor(c);
+		g.fillRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
+	}
 
 	public void draw(Graphics g){
 		g.setColor(mapColor());

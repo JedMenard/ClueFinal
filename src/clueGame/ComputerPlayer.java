@@ -69,6 +69,18 @@ public class ComputerPlayer extends Player {
 		return new Solution(person, room, weapon);
 	}
 	
+	public void makeMove(Board board, int steps) {
+		board.calcTargets(row, column, steps);
+		BoardCell target = pickLocation(board.getTargets()); 
+		
+		row = target.getRow();
+		column = target.getCol();
+		
+		repaint();
+		
+		// TODO: Handle suggestions and accusations
+	}
+	
 	private boolean seenCard(Card card) {
 		for(Card c : seenCards) {
 			if(c.equals(card)) {

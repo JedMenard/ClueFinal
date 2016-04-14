@@ -10,20 +10,20 @@ import javax.swing.*;
 
 import com.sun.glass.events.MouseEvent;
 
-public class ClueGame extends JFrame {
+public class ClueGame extends JFrame implements MouseListener {
 	public static Board board;
 	private int currentPlayer = 0;
-	
-	
+
+
 	public ClueGame(){
 		super();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue");
-		
+
 		board = new Board();
 		board.initialize();
 		add(board, BorderLayout.CENTER);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());		
@@ -51,7 +51,7 @@ public class ClueGame extends JFrame {
 
 		return item;
 	}
-	
+
 	private JMenuItem createDetectiveNotes()
 	{
 		JMenuItem item = new JMenuItem("Detective Notes");
@@ -67,64 +67,51 @@ public class ClueGame extends JFrame {
 
 		return item;
 	}
-	
+
 	private void handleRounds(){
-		
+
 	}
 
-	public class TargetListener implements MouseListener{
 
-		// Unused Functions
-		@Override
-		public void mouseReleased(java.awt.event.MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		@Override
-		public void mouseEntered(java.awt.event.MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		@Override
-		public void mouseExited(java.awt.event.MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		@Override
-		public void mousePressed(java.awt.event.MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
+	// Unused Functions
+	@Override
+	public void mouseReleased(java.awt.event.MouseEvent arg0) {}
+	@Override
+	public void mouseEntered(java.awt.event.MouseEvent arg0) {}
+	@Override
+	public void mouseExited(java.awt.event.MouseEvent arg0) {}
+	@Override
+	public void mousePressed(java.awt.event.MouseEvent arg0) {}
+
+
+	@Override
+	public void mouseClicked(java.awt.event.MouseEvent arg0) {
 		
-		
-		@Override
-		public void mouseClicked(java.awt.event.MouseEvent arg0) {
-			
-			
-		}
+
 	}
-	
-	
-	
+
+
+
+
 
 	public static void main(String[] args) {
 		ClueGame ourGame = new ClueGame();
-		
-		
+
+
 		ourGame.setSize((board.getNumRows()*40>1000) ? board.getNumRows()*40 : 1000, board.getNumColumns()*40);
-		
+
 		ControlGUI gui = new ControlGUI();
 		ourGame.add(gui, BorderLayout.SOUTH);
-		
-		
+
+
 		JOptionPane splash = new JOptionPane();
 		splash.showMessageDialog(ourGame, "You are Professor Plum, press Next Player to begin play.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
-		
+
 		HumanCards myCards = new HumanCards();
 		ourGame.add(myCards, BorderLayout.EAST);
-		
+
 		ourGame.setVisible(true);
-		
-		
+
+
 	}
 }

@@ -104,6 +104,9 @@ public class ControlGUI extends JPanel {
 					JOptionPane.showMessageDialog(new JFrame(), "Your turn is not over", "Error", JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
+				else {
+					
+				}
 				break;
 
 			case "Make an accusation":
