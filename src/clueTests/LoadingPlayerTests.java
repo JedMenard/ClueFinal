@@ -5,11 +5,8 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import clueGame.HumanPlayer;
 import clueGame.Player;
 
 public class LoadingPlayerTests {
@@ -24,20 +21,20 @@ public class LoadingPlayerTests {
 		assertEquals(p1.getPlayerName(), "Mrs. Peacock");
 		assertEquals(p1.getColumn(), 3);
 		assertEquals(p1.getRow(), 0);
-		assertEquals(p1.getColor(), Color.getColor("Blue"));
+		assertEquals(p1.getColor(), new Color(0,0,255));
 		
 		// Check if the third loaded player is correct
 		Player p2 = players.get(2);
 		assertEquals(p2.getPlayerName(), "Professor Plum");
 		assertEquals(p2.getColumn(), 6);
 		assertEquals(p2.getRow(), 21);
-		assertEquals(p2.getColor(), Color.getColor("Purple"));
+		assertEquals(p2.getColor(), new Color(255,0,255));
 		
 		// Check if the last player is loaded correctly
 		Player p4 = players.get(4);
 		assertEquals(p4.getPlayerName(), "Colonel Mustard");
 		assertEquals(p4.getColumn(), 22);
 		assertEquals(p4.getRow(), 10);
-		assertEquals(p4.getColor(), Color.getColor("Yellow"));
+		assertEquals(p4.getColor(), new Color(255,255,0));
 	}
 }
