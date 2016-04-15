@@ -1,18 +1,15 @@
 package clueGame;
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-
 import javax.swing.*;
 
-import com.sun.glass.events.MouseEvent;
-
 public class ClueGame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	public static Board board;
 	private int currentPlayer = 0;
+	public static boolean gameOver = false;
 
 
 	public ClueGame(){
@@ -74,31 +71,15 @@ public class ClueGame extends JFrame {
 			return;
 		}
 		else {
+			ClueGame.board.unhighlight();
+			Board.players.get(currentPlayer).makeMove(board, ControlGUI.roll());
 			
+			currentPlayer++;
+			System.out.println(currentPlayer);
+			
+			if (currentPlayer == Board.players.size()) currentPlayer = 0;
 		}
 	}
-	
-
-//	// Unused Functions
-//	@Override
-//	public void mouseReleased(java.awt.event.MouseEvent arg0) {}
-//	@Override
-//	public void mouseEntered(java.awt.event.MouseEvent arg0) {}
-//	@Override
-//	public void mouseExited(java.awt.event.MouseEvent arg0) {}
-//	@Override
-//	public void mousePressed(java.awt.event.MouseEvent arg0) {}
-//
-//
-//	@Override
-//	public void mouseClicked(java.awt.event.MouseEvent arg0) {
-//		
-//
-//	}
-
-
-
-
 
 	public static void main(String[] args) {
 		ClueGame ourGame = new ClueGame();
@@ -110,8 +91,7 @@ public class ClueGame extends JFrame {
 		ourGame.add(gui, BorderLayout.SOUTH);
 
 
-		JOptionPane splash = new JOptionPane();
-		splash.showMessageDialog(ourGame, "You are Professor Plum, press Next Player to begin play.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(ourGame, "You are Professor Plum, press Next Player to begin play.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 
 		HumanCards myCards = new HumanCards();
 		ourGame.add(myCards, BorderLayout.EAST);

@@ -3,7 +3,8 @@ package clueGame;
 import java.util.*;
 
 public class ComputerPlayer extends Player {
-	
+	private static final long serialVersionUID = 1L;
+
 	public ComputerPlayer(String n){
 		super();
 		super.setPlayerName(n);
@@ -55,7 +56,7 @@ public class ComputerPlayer extends Player {
 		Random r = new Random();
 		ArrayList<Card> weapons = new ArrayList<Card>();
 		ArrayList<Card> people = new ArrayList<Card>();
-		for (Card c: board.deck.deck) {
+		for (Card c: Deck.deck) {
 			if (!seenCard(c)){
 				if (c.getType() == CardType.WEAPON) weapons.add(c);
 				else if (c.getType() == CardType.PERSON) people.add(c);

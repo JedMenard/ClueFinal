@@ -1,6 +1,8 @@
 package clueGame;
 
 public class HumanPlayer extends Player {
+	private static final long serialVersionUID = 1L;
+
 	public HumanPlayer(){
 		super();
 	}
@@ -18,10 +20,12 @@ public class HumanPlayer extends Player {
 		super(name, color, row, col);
 	}
 	
+	@Override
 	public void makeMove(Board board, int steps){
+		board.humanTurnOver = false;
 		board.calcTargets(row, column, steps);
 		board.highlightTargets();
-		
+		repaint();
 		
 		
 		//TODO: make suggestion

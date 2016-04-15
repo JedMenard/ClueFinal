@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
@@ -16,6 +15,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 
 public class Player extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private String playerName;
 	protected int row;
 	protected int column;	
@@ -169,6 +169,9 @@ public class Player extends JPanel {
 		row = cell.getRow();
 		column = cell.getCol();
 	}
-	
-	//public void makeMove() {}
+
+	public void makeMove(Board board, int steps) {
+		// TODO Auto-generated method stub
+		
+	}
 }

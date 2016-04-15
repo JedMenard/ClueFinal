@@ -33,7 +33,7 @@ public class Board extends JPanel implements MouseListener {
 	private String leg;
 	private String lay;
 	public HumanPlayer p1;
-	protected boolean humanTurnOver = false;
+	protected boolean humanTurnOver = true;
 	
 	public Deck deck;	
 	private Solution theAnswer;
@@ -68,6 +68,9 @@ public class Board extends JPanel implements MouseListener {
 		
 		// Initializing variables
 		players = Player.loadPlayersFromFile("Players.txt");
+		p1 = (HumanPlayer) players.get(0);
+		players.add(0, p1);
+		players.remove(1);
 		rooms = new HashMap<Character, String>();
 		weaponCards = new ArrayList<Card>();
 		adjMtx = new HashMap<BoardCell,LinkedList<BoardCell>>();
@@ -356,7 +359,10 @@ public class Board extends JPanel implements MouseListener {
 
 	// Checks an accusation against the correct answer
 	public boolean checkAccustaion(Solution accusation){
-		if (accusation == theAnswer) return true;
+		if (accusation == theAnswer) {
+			ClueGame.gameOver = true;
+			return true;
+		}
 		else return false;
 	}
 
@@ -417,7 +423,7 @@ public class Board extends JPanel implements MouseListener {
 		BoardCell cell = null;
 		if(targets != null){
 			for (BoardCell c : targets){
-				if(c.containsClicked(e.getX(), e.getY())){ 
+				if(c.containsClicked(c.getRow(), c.getCol(), e.getX(), e.getY())){ 
 					cell = c;
 					break;
 				}
@@ -430,6 +436,14 @@ public class Board extends JPanel implements MouseListener {
 		}
 		else{
 			JOptionPane.showMessageDialog(new JFrame(), "That is not a valid cell", "Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	public void unhighlight(){
+		for (int row = 0; row < numRows; row++){
+			for (int col = 0; col < numCols; col++){
+				board[row][col].unhighlight();
+			}
 		}
 	}
 

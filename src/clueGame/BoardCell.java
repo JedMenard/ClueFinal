@@ -1,25 +1,13 @@
 package clueGame;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
 import javax.swing.JPanel;
-import javax.swing.text.html.HTMLDocument.Iterator;
-
-import com.sun.prism.BasicStroke;
-
 import java.awt.Color;
 
 import java.awt.Graphics;
@@ -28,7 +16,7 @@ import java.awt.Rectangle;
 
 
 public class BoardCell extends JPanel {
-
+	private static final long serialVersionUID = 1L;
 	private int row, col;
 	private static final Dimension size = new Dimension(35,35);
 	private static HashMap<Character,Color> colorMap = new HashMap<Character,Color>();	
@@ -119,6 +107,7 @@ public class BoardCell extends JPanel {
 					return split[1];
 				}
 			}
+			reader.close();
 		}
 		catch (FileNotFoundException e) {
 			System.out.println("No");
@@ -135,6 +124,7 @@ public class BoardCell extends JPanel {
 
 	public void draw(Graphics g){
 		g.setColor(mapColor());
+		if (highlighted) g.setColor(Color.CYAN);
 		g.fillRect((int)(col*size.getWidth()), (int)(row*size.getHeight()), (int)size.getHeight(), (int)size.getWidth());
 		if (initial == 'W') {
 			g.setColor(Color.WHITE);
@@ -195,10 +185,14 @@ public class BoardCell extends JPanel {
 		this.highlighted = highlighted;
 	}
 	
-	public boolean containsClicked(int x, int y){
-		Rectangle rect = new Rectangle(x, y, (int)size.getWidth(), (int)size.getHeight());
+	public boolean containsClicked(int row, int col, int x, int y){
+		Rectangle rect = new Rectangle(col*(int)size.getWidth(), row*(int)size.getHeight(), (int)size.getWidth(), (int)size.getHeight());
 		if(rect.contains(new Point(x, y)))		
 			return true;
 		return false;
+	}
+	
+	public void unhighlight(){
+		highlighted = false;
 	}
 }

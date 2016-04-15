@@ -4,11 +4,10 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -16,7 +15,7 @@ import javax.swing.border.TitledBorder;
 
 public class ControlGUI extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private JTextField name;
+	private static int roll;
 	
 	
 	public ControlGUI(ClueGame game){
@@ -66,7 +65,6 @@ public class ControlGUI extends JPanel {
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Die"));
 		return panel;
 	}
-	
 	private JPanel createGuessPanel(){
 		JPanel panel = new JPanel();
 		
@@ -106,23 +104,31 @@ public class ControlGUI extends JPanel {
 			switch (e.getActionCommand()) {
 			case "Next player":
 				game.handleRounds();
-				
-//				if (!Board.humanTurnOver){
-//					JOptionPane.showMessageDialog(new JFrame(), "Your turn is not over", "Error", JOptionPane.INFORMATION_MESSAGE);
-//					return;
-//				}
-//				else {
-//					
-//				}
+				repaint();
 				break;
 
 			case "Make an accusation":
-				
+				//TODO: Make an accusation
 				break;
 				
 			default:
 				break;
 			}			
 		}
+	}
+	
+	public static int roll(){
+		Random rand = new Random();
+		roll = rand.nextInt(6) + 1;
+		
+		return roll;
+	}
+	
+	public void updatePlayer(Player p){
+		
+	}
+	
+	public void updateRoll(int r){
+		
 	}
 }
