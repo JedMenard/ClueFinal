@@ -106,11 +106,12 @@ public class ControlGUI extends JPanel {
 			
 			switch (e.getActionCommand()) {
 			case "Next player":
+				whoseTurn.setText(game.getCurrentPlayerName());
 				
 				game.handleRounds();
-				game.repaint();
-				whoseTurn.setText(game.getCurrentPlayerName());
 				rollField.setText(Integer.toString(roll));
+				game.repaint();
+				
 				break;
 
 			case "Make an accusation":
