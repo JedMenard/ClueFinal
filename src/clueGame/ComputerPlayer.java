@@ -70,7 +70,7 @@ public class ComputerPlayer extends Player {
 		return new Solution(person, room, weapon);
 	}
 	
-	public void makeMove(Board board, int steps) {
+	public void makeMove(ClueGame game, Board board, int steps) {
 		board.calcTargets(row, column, steps);
 		BoardCell target = pickLocation(board.getTargets()); 
 		

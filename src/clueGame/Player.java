@@ -170,8 +170,5 @@ public class Player extends JPanel {
 		column = cell.getCol();
 	}
 
-	public void makeMove(Board board, int steps) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void makeMove(ClueGame clueGame, Board board, int steps) {}
 }

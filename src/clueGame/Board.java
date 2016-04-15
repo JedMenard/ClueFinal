@@ -386,7 +386,6 @@ public class Board extends JPanel implements MouseListener {
 				c.setHighlighted(true);
 			}
 		}
-		repaint();
 	}
 
 	// Below functions are used solely for testing
@@ -433,10 +432,12 @@ public class Board extends JPanel implements MouseListener {
 		if (cell != null){
 			players.get(0).moveTo(cell);
 			humanTurnOver = true;
+			unhighlight();
 		}
 		else{
 			JOptionPane.showMessageDialog(new JFrame(), "That is not a valid cell", "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
+		repaint();
 	}
 	
 	public void unhighlight(){

@@ -104,7 +104,7 @@ public class ControlGUI extends JPanel {
 			switch (e.getActionCommand()) {
 			case "Next player":
 				game.handleRounds();
-				repaint();
+				game.repaint();
 				break;
 
 			case "Make an accusation":
@@ -130,5 +130,9 @@ public class ControlGUI extends JPanel {
 	
 	public void updateRoll(int r){
 		
+	}
+	
+	public void ourRepaint(){
+		repaint();
 	}
 }
