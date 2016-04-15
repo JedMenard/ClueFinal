@@ -16,7 +16,10 @@ import javax.swing.border.TitledBorder;
 public class ControlGUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private static int roll;
-	
+	JTextField whoseTurn;
+	JButton nextPlayer;
+	JButton makeAccusation;
+	JTextField rollField;
 	
 	public ControlGUI(ClueGame game){
 		JPanel panel = createTurnControlPanel(game);
@@ -38,12 +41,12 @@ public class ControlGUI extends JPanel {
 		panel.setLayout(new GridLayout(1, 3));
 		
 		JLabel label = new JLabel("Whose turn?");
-		JTextField whoseTurn = new JTextField();
+		whoseTurn = new JTextField();
 		whoseTurn.setEditable(false);
-		JButton nextPlayer = new JButton("Next player");
+		nextPlayer = new JButton("Next player");
 		nextPlayer.setPreferredSize(new Dimension(100, 50));
 		nextPlayer.addActionListener(new ButtonListener(game));
-		JButton makeAccusation = new JButton("Make an accusation");
+		makeAccusation = new JButton("Make an accusation");
 		
 		panel.add(label);
 		panel.add(whoseTurn);
@@ -56,11 +59,11 @@ public class ControlGUI extends JPanel {
 	private JPanel createDiePanel(){
 		JPanel panel = new JPanel();
 		
-		JTextField roll = new JTextField();
-		roll.setEditable(false);		
-		roll.setPreferredSize(new Dimension(100,30));
+		rollField = new JTextField();
+		rollField.setEditable(false);		
+		rollField.setPreferredSize(new Dimension(100,30));
 		
-		panel.add(roll);
+		panel.add(rollField);
 
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Die"));
 		return panel;
@@ -103,8 +106,11 @@ public class ControlGUI extends JPanel {
 			
 			switch (e.getActionCommand()) {
 			case "Next player":
+				
 				game.handleRounds();
 				game.repaint();
+				whoseTurn.setText(game.getCurrentPlayerName());
+				rollField.setText(Integer.toString(roll));
 				break;
 
 			case "Make an accusation":
@@ -122,14 +128,6 @@ public class ControlGUI extends JPanel {
 		roll = rand.nextInt(6) + 1;
 		
 		return roll;
-	}
-	
-	public void updatePlayer(Player p){
-		
-	}
-	
-	public void updateRoll(int r){
-		
 	}
 	
 	public void ourRepaint(){

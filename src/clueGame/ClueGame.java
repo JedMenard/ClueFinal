@@ -10,7 +10,11 @@ public class ClueGame extends JFrame {
 	public static Board board;
 	private int currentPlayer = 0;
 	public static boolean gameOver = false;
+	private ControlGUI gui;
 
+	public void addGUI(ControlGUI g) {
+		gui = g;
+	}
 
 	public ClueGame(){
 		super();
@@ -72,13 +76,19 @@ public class ClueGame extends JFrame {
 		}
 		else {
 			ClueGame.board.unhighlight();
-			Board.players.get(currentPlayer).makeMove(board, ControlGUI.roll());
+			int newRoll = ControlGUI.roll();
+			Board.players.get(currentPlayer).makeMove(board, newRoll);
+			
 			
 			currentPlayer++;
 			System.out.println(currentPlayer);
 			
 			if (currentPlayer == Board.players.size()) currentPlayer = 0;
 		}
+	}
+	
+	public String getCurrentPlayerName(){
+		return Board.players.get(currentPlayer).getPlayerName();
 	}
 
 	public static void main(String[] args) {
@@ -89,6 +99,7 @@ public class ClueGame extends JFrame {
 
 		ControlGUI gui = new ControlGUI(ourGame);
 		ourGame.add(gui, BorderLayout.SOUTH);
+		ourGame.addGUI(gui);
 
 
 		JOptionPane.showMessageDialog(ourGame, "You are Professor Plum, press Next Player to begin play.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
