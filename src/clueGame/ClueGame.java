@@ -102,7 +102,7 @@ public class ClueGame extends JFrame {
 		ourGame.addGUI(gui);
 
 
-		JOptionPane.showMessageDialog(ourGame, "You are Professor Plum, press Next Player to begin play.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(ourGame, "You are Mrs. Peacock, press Next Player to begin play.", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 
 		HumanCards myCards = new HumanCards();
 		ourGame.add(myCards, BorderLayout.EAST);
