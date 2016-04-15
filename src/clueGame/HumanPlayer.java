@@ -21,11 +21,11 @@ public class HumanPlayer extends Player {
 	}
 	
 	@Override
-	public void makeMove(ClueGame game, Board board, int steps){
+	public void makeMove(Board board, int steps){
 		board.humanTurnOver = false;
 		board.calcTargets(row, column, steps);
 		board.highlightTargets();
-		game.repaint();
+		repaint();
 		
 		
 		//TODO: make suggestion

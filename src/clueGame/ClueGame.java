@@ -72,7 +72,7 @@ public class ClueGame extends JFrame {
 		}
 		else {
 			ClueGame.board.unhighlight();
-			Board.players.get(currentPlayer).makeMove(this, board, ControlGUI.roll());
+			Board.players.get(currentPlayer).makeMove(board, ControlGUI.roll());
 			
 			currentPlayer++;
 			System.out.println(currentPlayer);
