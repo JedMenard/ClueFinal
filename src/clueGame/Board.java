@@ -429,7 +429,7 @@ public class Board extends JPanel implements MouseListener {
 			}
 		}
 
-		if (cell != null){
+		if (cell != null && !humanTurnOver){
 			players.get(0).moveTo(cell);
 			humanTurnOver = true;
 			unhighlight();

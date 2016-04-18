@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -47,6 +49,7 @@ public class ControlGUI extends JPanel {
 		nextPlayer.setPreferredSize(new Dimension(100, 50));
 		nextPlayer.addActionListener(new ButtonListener(game));
 		makeAccusation = new JButton("Make an accusation");
+		makeAccusation.addActionListener(new AccusationButton(game));
 		
 		panel.add(label);
 		panel.add(whoseTurn);
@@ -124,6 +127,25 @@ public class ControlGUI extends JPanel {
 		}
 	}
 	
+	public class AccusationButton implements ActionListener{
+		ClueGame game;
+		
+		public AccusationButton(ClueGame game) {
+			this.game = game;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if(ClueGame.board.humanTurnOver){
+				JOptionPane.showMessageDialog(game, "Your turn is over!");
+			}
+			else{
+				game.displayAccusationPrompt();
+			}
+		}
+		
+	}
+	
 	public static int roll(){
 		Random rand = new Random();
 		roll = rand.nextInt(6) + 1;
@@ -131,7 +153,4 @@ public class ControlGUI extends JPanel {
 		return roll;
 	}
 	
-	public void ourRepaint(){
-		repaint();
-	}
 }
