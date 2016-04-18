@@ -79,7 +79,8 @@ public class ComputerPlayer extends Player {
 		
 		repaint();
 		
-		// TODO: Handle suggestions and accusations
+		if (board.getCellAt(row, column).isDoorway()) makeSuggestion(board, board.getCellAt(row, column));
+		// TODO: Handle accusations
 	}
 	
 	private boolean seenCard(Card card) {
