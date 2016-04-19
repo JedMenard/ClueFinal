@@ -13,6 +13,8 @@ public class ClueGame extends JFrame {
 	public static boolean gameOver = false;
 	private boolean firstTime = true;
 	public ControlGUI gui;
+	protected Solution suggestion;
+	
 
 	public void addGUI(ControlGUI g) {
 		gui = g;
@@ -117,6 +119,9 @@ public class ClueGame extends JFrame {
 
 	}
 
+	JTextField roomName;
+	JComboBox<String> personBox;
+	JComboBox<String> weaponBox;
 	public Solution displaySuggestionPrompt() {
 		Player thisPlayer = Board.players.get(currentPlayer);
 		
@@ -126,32 +131,36 @@ public class ClueGame extends JFrame {
 		
 		JTextPane roomText = new JTextPane();
 		roomText.setText("Your room:");
+		roomText.setEditable(false);
 		suggestionWindow.add(roomText);
 		
-		JTextField roomName = new JTextField();
+		roomName = new JTextField();
 		roomName.setText(board.getCellAt(thisPlayer.row, thisPlayer.column).getName());
 		roomName.setEditable(false);
 		suggestionWindow.add(roomName);
 		
 		JTextPane personText = new JTextPane();
 		personText.setText("Person:");
+		personText.setEditable(false);
 		suggestionWindow.add(personText);
 		
-		JComboBox<String> personBox = new JComboBox<String>();
+		personBox = new JComboBox<String>();
 		for (Player p : Board.players) personBox.addItem(p.getPlayerName());
+		personBox.addActionListener(new ComboBoxListener());
 		suggestionWindow.add(personBox);
 		
 		JTextPane weaponText = new JTextPane();
 		weaponText.setText("Weapon:");
+		weaponText.setEditable(false);
 		suggestionWindow.add(weaponText);
 		
-		JComboBox<String> weaponBox = new JComboBox<String>();
+		weaponBox = new JComboBox<String>();
 		for (Card c : Board.weaponCards) weaponBox.addItem(c.getName());
+		weaponBox.addActionListener(new ComboBoxListener());
 		suggestionWindow.add(weaponBox);
 		
 		JButton submit = new JButton("Submit");
-		Solution solution = new Solution(personBox.getItemAt(personBox.getSelectedIndex()),roomName.getText(),weaponBox.getItemAt(weaponBox.getSelectedIndex()));
-		submit.addActionListener(new SubmitSuggestionListener(solution, suggestionWindow));
+		submit.addActionListener(new SubmitSuggestionListener(suggestionWindow));
 		suggestionWindow.add(submit);
 		
 		JButton cancel = new JButton("Cancel");
@@ -194,8 +203,7 @@ public class ClueGame extends JFrame {
 		accusationWindow.add(weaponBox);
 		
 		JButton submit = new JButton("Submit");
-		Solution solution = new Solution(personBox.getItemAt(personBox.getSelectedIndex()), roomBox.getItemAt(roomBox.getSelectedIndex()), weaponBox.getItemAt(weaponBox.getSelectedIndex()));
-		submit.addActionListener(new SubmitAccusationListener(solution, accusationWindow));
+		submit.addActionListener(new SubmitAccusationListener(accusationWindow));
 		accusationWindow.add(submit);
 		
 		JButton cancel = new JButton("Cancel");
@@ -207,20 +215,18 @@ public class ClueGame extends JFrame {
 	}
 	
 	class SubmitAccusationListener implements ActionListener{
-		Solution solution;
 		JDialog window;
-		SubmitAccusationListener(Solution solution, JDialog window){
-			this.solution = solution;
+		SubmitAccusationListener(JDialog window){
 			this.window = window;
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(ClueGame.board.checkAccustaion(solution)){
+			if(ClueGame.board.checkAccustaion(suggestion)){
 				gameOver = true;
-				JOptionPane.showMessageDialog(null, board.p1.getPlayerName() + " won the game with a guess of " + solution.person + " on " + solution.room + " with the " + solution.weapon);
+				JOptionPane.showMessageDialog(null, Board.players.get(0).getPlayerName() + " won the game with a guess of " + suggestion.person + " on " + suggestion.room + " with the " + suggestion.weapon);
 			}
 			else{
-				JOptionPane.showMessageDialog(null, board.p1.getPlayerName() + " was wrong with a guess of " + solution.person + " on " + solution.room + " with the " + solution.weapon);
+				JOptionPane.showMessageDialog(new JFrame(), Board.players.get(0).getPlayerName() + " was wrong with a guess of " + suggestion.person + " on " + suggestion.room + " with the " + suggestion.weapon);
 			}
 			ClueGame.board.unhighlight();
 			repaint();
@@ -238,21 +244,19 @@ public class ClueGame extends JFrame {
 	}
 	
 	class SubmitSuggestionListener implements ActionListener{
-		Solution solution;
 		JDialog window;
 		
-		SubmitSuggestionListener(Solution solution, JDialog window){
-			this.solution = solution;
+		SubmitSuggestionListener(JDialog window){
 			this.window = window;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Card newCard = ClueGame.board.handleSuggestion(solution, Board.players.get(currentPlayer), new BoardCell());
-			gui.updateGuess(solution.person + " on " + solution.room + " with the " + solution.weapon);
+			Card newCard = ClueGame.board.handleSuggestion(suggestion, Board.players.get(currentPlayer), new BoardCell());
+			gui.updateGuess(suggestion.person + " on " + suggestion.room + " with the " + suggestion.weapon);
 			gui.updateResponse(newCard);
 			for (Player p : Board.players){
-				if (p.getName() == solution.person) p.setLocation(Board.players.get(currentPlayer).row, Board.players.get(currentPlayer).column);
+				if (p.getName() == suggestion.person) p.setLocation(Board.players.get(currentPlayer).row, Board.players.get(currentPlayer).column);
 			}
 			window.setVisible(false);
 			board.humanTurnOver = true;
@@ -273,6 +277,15 @@ public class ClueGame extends JFrame {
 			window.setVisible(false);
 		}
 		
+		
+	}
+	
+	public class ComboBoxListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {			
+			suggestion = new Solution(personBox.getSelectedItem().toString(), roomName.getText(), weaponBox.getSelectedItem().toString());
+		}
 		
 	}
 }
