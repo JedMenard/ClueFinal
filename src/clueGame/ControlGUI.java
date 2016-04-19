@@ -150,8 +150,8 @@ public class ControlGUI extends JPanel {
 		repaint();
 	}
 	
-	public void updateGuess(String s1, String s2){
-		guess.setText(s1 + "\n" + s2);
+	public void updateGuess(String s){
+		guess.setText(s);
 		repaint();
 	}
 	

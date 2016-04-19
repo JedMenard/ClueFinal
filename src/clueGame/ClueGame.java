@@ -117,7 +117,7 @@ public class ClueGame extends JFrame {
 
 	}
 
-	public void displaySuggestionPrompt() {
+	public Solution displaySuggestionPrompt() {
 		Player thisPlayer = Board.players.get(currentPlayer);
 		
 		JDialog suggestionWindow = new JDialog(this);
@@ -160,6 +160,8 @@ public class ClueGame extends JFrame {
 		
 		suggestionWindow.pack();
 		suggestionWindow.setVisible(true);
+		
+		return null;
 	}
 	
 	public void displayAccusationPrompt() {
@@ -240,8 +242,9 @@ public class ClueGame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ClueGame.board.handleSuggestion(solution, Board.players.get(currentPlayer), new BoardCell());
-			
+			Card newCard = ClueGame.board.handleSuggestion(solution, Board.players.get(currentPlayer), new BoardCell());
+			gui.updateGuess(solution.person + " on " + solution.room + " with the " + solution.weapon);
+			gui.updateResponse(newCard);
 			//TODO: Update the control panel with the most recent accusation
 			
 			window.setVisible(false);

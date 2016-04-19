@@ -32,12 +32,12 @@ public class HumanPlayer extends Player {
 		repaint();
 	}
 	
-	@Override
-	public void makeSuggestion(BoardCell cell, ClueGame game){
+	public Solution makeSuggestion(BoardCell cell, ClueGame game){
 		int confirm = JOptionPane.showConfirmDialog(null, "Would you like to make a suggestion?");
 		
 		if (confirm == JOptionPane.YES_OPTION){
 			game.displaySuggestionPrompt();
 		}
+		return null;
 	}
 }

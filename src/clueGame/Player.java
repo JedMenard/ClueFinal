@@ -171,5 +171,5 @@ public class Player extends JPanel {
 	}
 
 	public void makeMove(Board board, int steps, ClueGame game) {}
-	public void makeSuggestion(BoardCell cell, ClueGame game){}
+	public Solution makeSuggestion(BoardCell cell, ClueGame game){return null;}
 }

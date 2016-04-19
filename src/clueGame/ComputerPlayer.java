@@ -2,6 +2,8 @@ package clueGame;
 
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class ComputerPlayer extends Player {
 	private static final long serialVersionUID = 1L;
 	public static boolean timeToAccuse = false;
@@ -50,8 +52,14 @@ public class ComputerPlayer extends Player {
 		return chosenCell;
 	}
 	
-	public void makeAccustation(Board board) {
-		
+	public void makeAccusation(Board board) {
+		if(board.checkAccustaion(lastGuess)) {
+			ClueGame.gameOver = true;
+			JOptionPane.showMessageDialog(null, getPlayerName() + " won the game with a guess of " + lastGuess.person + " on " + lastGuess.room + " with the " + lastGuess.weapon);
+		}
+		else {
+			JOptionPane.showMessageDialog(null, getPlayerName() + " was not correct with a guess of " + lastGuess.person + " on " + lastGuess.room + " with the " + lastGuess.weapon);
+		}
 	}
 	
 	public Solution makeSuggestion(Board board, BoardCell location) {
@@ -81,7 +89,7 @@ public class ComputerPlayer extends Player {
 		column = target.getCol();
 		
 		if(timeToAccuse){
-			if(board.checkAccustaion(lastGuess)) ClueGame.gameOver = true;
+			makeAccusation(board);
 			return;
 		}
 		
@@ -89,7 +97,7 @@ public class ComputerPlayer extends Player {
 		
 		if (board.getCellAt(row, column).isDoorway()) {
 			solution = makeSuggestion(board, board.getCellAt(row, column));
-			game.gui.updateGuess(solution.person + " on " + solution.room, "with the " + solution.weapon);
+			game.gui.updateGuess(solution.person + " on " + solution.room + " with the " + solution.weapon);
 			lastGuess = solution;
 			Card newCard = board.handleSuggestion(solution, this, null);
 			if (newCard != null){
