@@ -58,6 +58,7 @@ public class ComputerPlayer extends Player {
 			JOptionPane.showMessageDialog(null, getPlayerName() + " won the game with a guess of " + lastGuess.person + " on " + lastGuess.room + " with the " + lastGuess.weapon);
 		}
 		else {
+			timeToAccuse = false;
 			JOptionPane.showMessageDialog(null, getPlayerName() + " was not correct with a guess of " + lastGuess.person + " on " + lastGuess.room + " with the " + lastGuess.weapon);
 		}
 	}
@@ -85,13 +86,13 @@ public class ComputerPlayer extends Player {
 		board.calcTargets(row, column, steps);
 		BoardCell target = pickLocation(board.getTargets()); 
 		
-		row = target.getRow();
-		column = target.getCol();
-		
 		if(timeToAccuse){
 			makeAccusation(board);
 			return;
 		}
+		
+		row = target.getRow();
+		column = target.getCol();
 		
 		repaint();
 		
@@ -109,7 +110,6 @@ public class ComputerPlayer extends Player {
 			}
 			
 		}
-		// TODO: Handle accusations
 	}
 	
 	private boolean seenCard(Card card) {

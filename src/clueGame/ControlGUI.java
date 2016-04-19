@@ -146,12 +146,19 @@ public class ControlGUI extends JPanel {
 	}
 	
 	public void updateResponse(Card c){
-		response.setText(c.getName());
+		if(c != null){
+			response.setText(c.getName());
+		}
+		else{
+			guess.setText("No new clue");
+		}
 		repaint();
 	}
-	
+
 	public void updateGuess(String s){
-		guess.setText(s);
+
+			guess.setText(s);
+		
 		repaint();
 	}
 	

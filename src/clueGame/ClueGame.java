@@ -215,7 +215,13 @@ public class ClueGame extends JFrame {
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ClueGame.board.checkAccustaion(solution);
+			if(ClueGame.board.checkAccustaion(solution)){
+				gameOver = true;
+				JOptionPane.showMessageDialog(null, board.p1.getPlayerName() + " won the game with a guess of " + solution.person + " on " + solution.room + " with the " + solution.weapon);
+			}
+			else{
+				JOptionPane.showMessageDialog(null, board.p1.getPlayerName() + " was wrong with a guess of " + solution.person + " on " + solution.room + " with the " + solution.weapon);
+			}
 			ClueGame.board.unhighlight();
 			repaint();
 			ClueGame.board.humanTurnOver = true;
@@ -245,8 +251,9 @@ public class ClueGame extends JFrame {
 			Card newCard = ClueGame.board.handleSuggestion(solution, Board.players.get(currentPlayer), new BoardCell());
 			gui.updateGuess(solution.person + " on " + solution.room + " with the " + solution.weapon);
 			gui.updateResponse(newCard);
-			//TODO: Update the control panel with the most recent accusation
-			
+			for (Player p : Board.players){
+				if (p.getName() == solution.person) p.setLocation(Board.players.get(currentPlayer).row, Board.players.get(currentPlayer).column);
+			}
 			window.setVisible(false);
 			board.humanTurnOver = true;
 			board.unhighlight();
