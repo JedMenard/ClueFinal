@@ -74,7 +74,10 @@ public class ClueGame extends JFrame {
 	}
 
 	public void handleRounds(){
-		if (!board.humanTurnOver){
+		if (gameOver){
+			JOptionPane.showMessageDialog(null, "Game over!!!");
+		}
+		else if (!board.humanTurnOver){
 			JOptionPane.showMessageDialog(new JFrame(), "Your turn is not over", "Error", JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
