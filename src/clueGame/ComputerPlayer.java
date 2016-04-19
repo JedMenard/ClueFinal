@@ -98,6 +98,10 @@ public class ComputerPlayer extends Player {
 		
 		if (board.getCellAt(row, column).isDoorway()) {
 			solution = makeSuggestion(board, board.getCellAt(row, column));
+			for (Player p : Board.players){
+				if (p.getPlayerName().equals(solution.person)) 
+					p.setLocation(this.row, this.column);
+			}
 			game.gui.updateGuess(solution.person + " on " + solution.room + " with the " + solution.weapon);
 			lastGuess = solution;
 			Card newCard = board.handleSuggestion(solution, this, null);

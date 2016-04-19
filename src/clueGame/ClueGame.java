@@ -122,7 +122,8 @@ public class ClueGame extends JFrame {
 	JTextField roomName;
 	JComboBox<String> personBox;
 	JComboBox<String> weaponBox;
-	public Solution displaySuggestionPrompt() {
+	JComboBox<String> roomBox;
+	public void displaySuggestionPrompt() {
 		Player thisPlayer = Board.players.get(currentPlayer);
 		
 		JDialog suggestionWindow = new JDialog(this);
@@ -146,7 +147,7 @@ public class ClueGame extends JFrame {
 		
 		personBox = new JComboBox<String>();
 		for (Player p : Board.players) personBox.addItem(p.getPlayerName());
-		personBox.addActionListener(new ComboBoxListener());
+		personBox.addActionListener(new ComboBoxListenerSuggestion());
 		suggestionWindow.add(personBox);
 		
 		JTextPane weaponText = new JTextPane();
@@ -156,7 +157,7 @@ public class ClueGame extends JFrame {
 		
 		weaponBox = new JComboBox<String>();
 		for (Card c : Board.weaponCards) weaponBox.addItem(c.getName());
-		weaponBox.addActionListener(new ComboBoxListener());
+		weaponBox.addActionListener(new ComboBoxListenerSuggestion());
 		suggestionWindow.add(weaponBox);
 		
 		JButton submit = new JButton("Submit");
@@ -167,10 +168,10 @@ public class ClueGame extends JFrame {
 		cancel.addActionListener(new CancelListener(suggestionWindow));
 		suggestionWindow.add(cancel);
 		
+		suggestion = new Solution(personBox.getSelectedItem().toString(), roomName.getText(), weaponBox.getSelectedItem().toString());
+		
 		suggestionWindow.pack();
 		suggestionWindow.setVisible(true);
-		
-		return null;
 	}
 	
 	public void displayAccusationPrompt() {
@@ -182,24 +183,27 @@ public class ClueGame extends JFrame {
 		roomText.setText("Your room:");
 		accusationWindow.add(roomText);
 		
-		JComboBox<String> roomBox = new JComboBox<String>();
+		roomBox = new JComboBox<String>();
 		for (char c : Board.roomNames.keySet()) roomBox.addItem(Board.roomNames.get(c));
+		roomBox.addActionListener(new ComboBoxListenerAccusation());
 		accusationWindow.add(roomBox);
 		
 		JTextPane personText = new JTextPane();
 		personText.setText("Person:");
 		accusationWindow.add(personText);
 		
-		JComboBox<String> personBox = new JComboBox<String>();
+		personBox = new JComboBox<String>();
 		for (Player p : Board.players) personBox.addItem(p.getPlayerName());
+		personBox.addActionListener(new ComboBoxListenerAccusation());
 		accusationWindow.add(personBox);
 		
 		JTextPane weaponText = new JTextPane();
 		weaponText.setText("Weapon:");
 		accusationWindow.add(weaponText);
 		
-		JComboBox<String> weaponBox = new JComboBox<String>();
+		weaponBox = new JComboBox<String>();
 		for (Card c : Board.weaponCards) weaponBox.addItem(c.getName());
+		weaponBox.addActionListener(new ComboBoxListenerAccusation());
 		accusationWindow.add(weaponBox);
 		
 		JButton submit = new JButton("Submit");
@@ -209,6 +213,8 @@ public class ClueGame extends JFrame {
 		JButton cancel = new JButton("Cancel");
 		cancel.addActionListener(new CancelListener(accusationWindow));
 		accusationWindow.add(cancel);
+		
+		suggestion = new Solution(personBox.getSelectedItem().toString(), roomBox.getSelectedItem().toString(), weaponBox.getSelectedItem().toString());
 		
 		accusationWindow.pack();
 		accusationWindow.setVisible(true);
@@ -256,7 +262,8 @@ public class ClueGame extends JFrame {
 			gui.updateGuess(suggestion.person + " on " + suggestion.room + " with the " + suggestion.weapon);
 			gui.updateResponse(newCard);
 			for (Player p : Board.players){
-				if (p.getName() == suggestion.person) p.setLocation(Board.players.get(currentPlayer).row, Board.players.get(currentPlayer).column);
+				if (p.getPlayerName().equals(suggestion.person)) 
+					p.setLocation(Board.players.get(currentPlayer).row, Board.players.get(currentPlayer).column);
 			}
 			window.setVisible(false);
 			board.humanTurnOver = true;
@@ -280,11 +287,20 @@ public class ClueGame extends JFrame {
 		
 	}
 	
-	public class ComboBoxListener implements ActionListener{
+	public class ComboBoxListenerSuggestion implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {			
 			suggestion = new Solution(personBox.getSelectedItem().toString(), roomName.getText(), weaponBox.getSelectedItem().toString());
+		}
+		
+	}
+	
+	public class ComboBoxListenerAccusation implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {			
+			suggestion = new Solution(personBox.getSelectedItem().toString(), roomBox.getSelectedItem().toString(), weaponBox.getSelectedItem().toString());
 		}
 		
 	}
