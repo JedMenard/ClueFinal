@@ -22,8 +22,12 @@ public class ControlGUI extends JPanel {
 	JButton nextPlayer;
 	JButton makeAccusation;
 	JTextField rollField;
+	JTextField guess;
+	JTextField response;
 	
 	public ControlGUI(ClueGame game){
+		setLayout(new GridLayout(1,0));
+		
 		JPanel panel = createTurnControlPanel(game);
 		add(panel);
 		
@@ -35,12 +39,11 @@ public class ControlGUI extends JPanel {
 		
 		panel = createResponsePanel();
 		add(panel);
-
 	}
 	
 	private JPanel createTurnControlPanel(ClueGame game){
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1, 3));
+		panel.setLayout(new GridLayout(0, 2));
 		
 		JLabel label = new JLabel("Whose turn?");
 		whoseTurn = new JTextField();
@@ -64,19 +67,19 @@ public class ControlGUI extends JPanel {
 		
 		rollField = new JTextField();
 		rollField.setEditable(false);		
-		rollField.setPreferredSize(new Dimension(100,30));
+		rollField.setPreferredSize(new Dimension(150,50));
 		
 		panel.add(rollField);
-
+		
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Die"));
 		return panel;
 	}
 	private JPanel createGuessPanel(){
 		JPanel panel = new JPanel();
 		
-		JTextField guess = new JTextField();
+		guess = new JTextField();
 		guess.setEditable(false);
-		guess.setPreferredSize(new Dimension(100,30));
+		guess.setPreferredSize(new Dimension(300,50));
 		
 		panel.add(guess);
 		
@@ -87,9 +90,9 @@ public class ControlGUI extends JPanel {
 	private JPanel createResponsePanel(){
 		JPanel panel = new JPanel();
 		
-		JTextField response = new JTextField();
+		response = new JTextField();
 		response.setEditable(false);
-		response.setPreferredSize(new Dimension(100,30));
+		response.setPreferredSize(new Dimension(150,50));
 		
 		panel.add(response);
 
@@ -116,10 +119,6 @@ public class ControlGUI extends JPanel {
 				game.repaint();
 				
 				break;
-
-			case "Make an accusation":
-				//TODO: Make an accusation
-				break;
 				
 			default:
 				break;
@@ -144,6 +143,16 @@ public class ControlGUI extends JPanel {
 			}
 		}
 		
+	}
+	
+	public void updateResponse(Card c){
+		response.setText(c.getName());
+		repaint();
+	}
+	
+	public void updateGuess(String s1, String s2){
+		guess.setText(s1 + "\n" + s2);
+		repaint();
 	}
 	
 	public static int roll(){

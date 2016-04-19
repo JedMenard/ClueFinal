@@ -34,6 +34,7 @@ public class Board extends JPanel implements MouseListener {
 	private String lay;
 	public HumanPlayer p1;
 	protected boolean humanTurnOver = true;
+	public ClueGame game;
 	
 	public Deck deck;	
 	private Solution theAnswer;
@@ -51,7 +52,13 @@ public class Board extends JPanel implements MouseListener {
 	// Default Constructor
 	public Board() {
 		leg = "Legend.txt";
-		lay = "Layout.csv";		
+		lay = "Layout.csv";
+	}
+	
+	public Board(ClueGame game) {
+		leg = "Legend.txt";
+		lay = "Layout.csv";
+		this.game = game;
 	}
 
 	// Constructor
@@ -354,6 +361,7 @@ public class Board extends JPanel implements MouseListener {
 			result = players.get((i+j)%players.size()).disproveSuggestion(suggestion);
 			if (result != null) break;
 		}
+		
 		return result;
 	}
 
@@ -431,11 +439,14 @@ public class Board extends JPanel implements MouseListener {
 
 		if (cell != null && !humanTurnOver){
 			players.get(0).moveTo(cell);
+			if(cell.isDoorway()){
+				players.get(0).makeSuggestion(cell, game);
+			}
 			humanTurnOver = true;
 			unhighlight();
 		}
 		else{
-			JOptionPane.showMessageDialog(new JFrame(), "That is not a valid cell", "Error", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "That is not a valid cell", "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 		repaint();
 	}

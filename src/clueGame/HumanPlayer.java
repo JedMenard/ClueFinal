@@ -1,7 +1,10 @@
 package clueGame;
 
+import javax.swing.JOptionPane;
+
 public class HumanPlayer extends Player {
 	private static final long serialVersionUID = 1L;
+	boolean wantToMakeSuggestion = false;
 
 	public HumanPlayer(){
 		super();
@@ -21,15 +24,20 @@ public class HumanPlayer extends Player {
 	}
 	
 	@Override
-	public void makeMove(Board board, int steps){
+	public void makeMove(Board board, int steps, ClueGame game){
 		board.humanTurnOver = false;
 		board.calcTargets(row, column, steps);
 		board.highlightTargets();
+		if (board.getCellAt(row, column).isDoorway()) makeSuggestion(board.getCellAt(row, column),game);
 		repaint();
-		
-		
-		//TODO: make suggestion
 	}
 	
-	
+	@Override
+	public void makeSuggestion(BoardCell cell, ClueGame game){
+		int confirm = JOptionPane.showConfirmDialog(null, "Would you like to make a suggestion?");
+		
+		if (confirm == JOptionPane.YES_OPTION){
+			game.displaySuggestionPrompt();
+		}
+	}
 }

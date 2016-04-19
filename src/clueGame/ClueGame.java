@@ -6,14 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-import jdk.nashorn.internal.scripts.JD;
-
 public class ClueGame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static Board board;
 	private int currentPlayer = 0;
 	public static boolean gameOver = false;
-	private ControlGUI gui;
+	private boolean firstTime = true;
+	public ControlGUI gui;
 
 	public void addGUI(ControlGUI g) {
 		gui = g;
@@ -24,7 +23,7 @@ public class ClueGame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue");
 
-		board = new Board();
+		board = new Board(this);
 		board.initialize();
 		add(board, BorderLayout.CENTER);
 
@@ -78,15 +77,18 @@ public class ClueGame extends JFrame {
 			return;
 		}
 		else {
+			if (!firstTime)currentPlayer++;
+			else firstTime = false;
+			if (currentPlayer == Board.players.size()) currentPlayer = 0;
 			ClueGame.board.unhighlight();
 			int newRoll = ControlGUI.roll();
-			Board.players.get(currentPlayer).makeMove(board, newRoll);
+			Board.players.get(currentPlayer).makeMove(board, newRoll, this);
 			
 			
-			currentPlayer++;
+			
 			//System.out.println(currentPlayer);
 			
-			if (currentPlayer == Board.players.size()) currentPlayer = 0;
+			
 		}
 	}
 	
@@ -219,6 +221,9 @@ public class ClueGame extends JFrame {
 			//TODO: Update the control panel with the most recent accusation
 			
 			window.setVisible(false);
+			board.humanTurnOver = true;
+			board.unhighlight();
+			repaint();
 		}
 		
 		
@@ -239,7 +244,10 @@ public class ClueGame extends JFrame {
 			
 			//TODO: Update the control panel with the most recent accusation
 			
-			window.setVisible(false);	
+			window.setVisible(false);
+			board.humanTurnOver = true;
+			board.unhighlight();
+			repaint();
 		}
 		
 		

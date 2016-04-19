@@ -4,6 +4,8 @@ import java.util.*;
 
 public class ComputerPlayer extends Player {
 	private static final long serialVersionUID = 1L;
+	public static boolean timeToAccuse = false;
+	public static Solution lastGuess;
 
 	public ComputerPlayer(String n){
 		super();
@@ -70,16 +72,35 @@ public class ComputerPlayer extends Player {
 		return new Solution(person, room, weapon);
 	}
 	
-	public void makeMove(Board board, int steps) {
+	public void makeMove(Board board, int steps, ClueGame game) {
+		Solution solution;
 		board.calcTargets(row, column, steps);
 		BoardCell target = pickLocation(board.getTargets()); 
 		
 		row = target.getRow();
 		column = target.getCol();
 		
+		if(timeToAccuse){
+			if(board.checkAccustaion(lastGuess)) ClueGame.gameOver = true;
+			return;
+		}
+		
 		repaint();
 		
-		if (board.getCellAt(row, column).isDoorway()) makeSuggestion(board, board.getCellAt(row, column));
+		if (board.getCellAt(row, column).isDoorway()) {
+			solution = makeSuggestion(board, board.getCellAt(row, column));
+			game.gui.updateGuess(solution.person + " on " + solution.room, "with the " + solution.weapon);
+			lastGuess = solution;
+			Card newCard = board.handleSuggestion(solution, this, null);
+			if (newCard != null){
+				seenCards.add(newCard);
+				game.gui.updateResponse(newCard);
+			}
+			else{
+				timeToAccuse = true;
+			}
+			
+		}
 		// TODO: Handle accusations
 	}
 	

@@ -170,5 +170,6 @@ public class Player extends JPanel {
 		column = cell.getCol();
 	}
 
-	public void makeMove(Board board, int steps) {}
+	public void makeMove(Board board, int steps, ClueGame game) {}
+	public void makeSuggestion(BoardCell cell, ClueGame game){}
 }
